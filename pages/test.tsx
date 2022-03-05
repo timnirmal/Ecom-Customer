@@ -289,7 +289,7 @@ export default function Example() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="relative bg-white">
+            <header className="relative bg-white z-40">
                 <p className="bg-indigo-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
                     Get free delivery on orders over $100
                 </p>
@@ -436,9 +436,34 @@ export default function Example() {
                             <div className="flex lg:ml-6">
                                 <a href="#" className="p-2 text-gray-400 hover:text-gray-500 space-x-6">
                                     <span className="sr-only">Search</span>
-                                    <SearchIcon className="w-6 h-6" aria-hidden="true"/>
+                                    <SearchIcon className="w-6 h-6 stroke-0" aria-hidden="true"/>
                                 </a>
                             </div>
+
+
+
+
+                            <label className="relative block">
+                                <span className="sr-only">Search</span>
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                                    {/*<svg className="h-5 w-5 fill-slate-300" viewBox="0 0 20 20">*/}
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         className="h-6 w-6 stroke-slate-400"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor"
+                                         strokeWidth="2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                    </svg>
+                                </span>
+                                <input
+                                    className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                                    placeholder="Search for anything..." type="text" name="search"/>
+                            </label>
+
+
+
+
 
                             <div className="ml-auto flex items-center">
 

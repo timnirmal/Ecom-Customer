@@ -1,33 +1,46 @@
 import Image from 'next/image'
 import React from "react";
 
-export default function Card({children, className, ...props}) {
+export default function FourItemCard({children, className, ...props}) {
     return (
         <div className={`card ${className}`} {...props}>
+
             <div
                 //className="max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
                 className="bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
-                <div className="lg:h-72 md:h-56 sm:h-28 rounded-lg overflow-hidden relative p-3">
+
+                <div className="pl-5 pt-5">
                     <a href="#">
-                        <img src={"/Products/WhiteClock.png"} className="object-cover w-full h-full rounded-2xl"
-                             alt=""/>
-                        {/*<Image
-                            src="/Products/WhiteClock.png"
-                            alt="Picture of the author"
-                            layout="responsive"
-                            height={12}
-                            width={20}
-                            objectFit="cover"
-                            className="rounded-2xl"
-                        />*/}
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">T-Shirts</h5>
                     </a>
                 </div>
+
+
+                <div className="flex flex-wrap">
+                    <div className="w-full w-1/2 mb-4 p-4 pr-2 pb-1">
+                        <a href="#">
+                            <img src={"/Products/WhiteClock.png"} className="object-cover w-full h-full rounded-2xl" alt=""/>
+                        </a>
+                    </div>
+                    <div className="w-full w-1/2 mb-4 p-4 pl-2 pb-1">
+                                                <a href="#">
+                            <img src={"/Products/WhiteClock.png"} className="object-cover w-full h-full rounded-2xl" alt=""/>
+                        </a>
+                    </div>
+                    <div className="w-full w-1/2 mb-4 p-4 pr-2 pt-0">
+                                                <a href="#">
+                            <img src={"/Products/WhiteClock.png"} className="object-cover w-full h-full rounded-2xl" alt=""/>
+                        </a>
+                    </div>
+                    <div className="w-full w-1/2 mb-4 p-4 pl-2 pt-0">
+                                                <a href="#">
+                            <img src={"/Products/WhiteClock.png"} className="object-cover w-full h-full rounded-2xl" alt=""/>
+                        </a>
+                    </div>
+                </div>
+
+
                 <div className="p-5">
-                    <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology
-                            acquisitions 2021</h5>
-                    </a>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
                         technology
                         acquisitions of 2021 so far, in reverse chronological order.</p>
