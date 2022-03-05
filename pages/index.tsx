@@ -10,6 +10,8 @@ import Example from './test'
 import Image from 'next/image'
 import Carousel from "../components/Carousel/Carousel";
 import Card from "../components/Card/card";
+import CardData from "../components/Card/CardData";
+import CardLikeComment from "../components/Card/CardLikeComment";
 
 // define the shape of the SignUp form's fields
 type SignUpFieldProps = {
@@ -59,12 +61,28 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                 */}
 
 
-
                 <Card
                     title="Card Title"
                     description="Card description"
                     image="components/Slidebar/Screenshot(1082).png"
                 />
+
+                <div className="flex flex-col items-center p-5 sm:justify-center sm:pt-9 sm:flex-row text-justify relative">
+                <div className="border-solid border-2 border-black basis-[13%] sm:mr-10 min-w-1/5 rounded-lg ">
+                    <Image
+                        src="/Products/WhiteClock.png"
+                        alt="Profile"
+                        width={600}
+                        height={400}
+                        layout="responsive"
+                        objectFit="cover"
+                        className="rounded-lg"
+                    />
+                </div>
+                </div>
+
+
+
 
                 <Carousel playTime={3000}/>
 

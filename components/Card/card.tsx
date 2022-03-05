@@ -1,21 +1,22 @@
 import Image from 'next/image'
 
-
 export default function Card({children, className, ...props}) {
     return (
         <div className={`card ${className}`} {...props}>
             <div
                 className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                <div className="h-56 rounded-2xl overflow-hidden w-96 relative">
                     <a href="#">
                         <Image
                             src="/Products/WhiteClock.png"
                             alt="Picture of the author"
                             layout="responsive"
-                            height={100}
+                            height={120}
                             width={200}
                             objectFit="cover"
                         />
                     </a>
+                </div>
                 <div className="p-5">
                     <a href="#">
                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
