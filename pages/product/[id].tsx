@@ -7,9 +7,9 @@ const Comment = () => {
     return (
         <>
             <h1>Post: {id}</h1>
+            <h1>Post: {id}</h1>
         </>
     )
 }
-
 
 export default Comment
