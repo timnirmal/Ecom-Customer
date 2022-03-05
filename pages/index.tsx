@@ -9,6 +9,7 @@ import Navbar from '../components/Navbar'
 import Example from './test'
 import Image from 'next/image'
 import Carousel from "../components/Carousel/Carousel";
+import Card from "../components/Card/card";
 
 // define the shape of the SignUp form's fields
 type SignUpFieldProps = {
@@ -56,6 +57,14 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                 />
                 // fill,fixed,intrinsic,responsive,undefined.
                 */}
+
+
+
+                <Card
+                    title="Card Title"
+                    description="Card description"
+                    image="components/Slidebar/Screenshot(1082).png"
+                />
 
                 <Carousel playTime={3000}/>
 
