@@ -13,7 +13,9 @@ import Card from "../components/Card/card";
 import CardData from "../components/Card/CardData";
 import CardLikeComment from "../components/Card/CardLikeComment";
 import FourItemCard from "../components/Card/FourItemCard";
+
 import Comment from "../pages/product/[id]";
+
 
 // define the shape of the SignUp form's fields
 type SignUpFieldProps = {
@@ -76,6 +78,7 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                                     justify-items-center gap-4
                                     ">
                         <FourItemCard
+
                             title="T-Shirts"
                             Item1="T-Shirt"
                             Item1Image="/Products/WhiteClock.png"
@@ -101,6 +104,7 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                         />
                         <Card
                             title="Men-White-Watch"
+
                             description="Card description"
                             image="components/Slidebar/Screenshot(1082).png"
                         />
