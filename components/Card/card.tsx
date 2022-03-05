@@ -1,17 +1,24 @@
 import Image from 'next/image'
 import React from "react";
+import {useRouter} from 'next/router'
+import Link from 'next/link'
 
 export default function Card({children, className, ...props}) {
+    const router = useRouter()
+    const {id} = router.query
+    const title = props.title || 'Card'
+
     return (
         <div className={`card ${className}`} {...props}>
             <div
                 //className="max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
                 className="bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
                 <div className="lg:h-72 md:h-56 sm:h-28 rounded-lg overflow-hidden relative p-3">
-                    <a href="#">
-                        <img src={"/Products/WhiteClock.png"} className="object-cover w-full h-full rounded-2xl"
-                             alt=""/>
-                        {/*<Image
+                    <Link href="/product/[id]" as={`/product/${title}`}>
+                        <a href="#">
+                            <img src={"/Products/WhiteClock.png"} className="object-cover w-full h-full rounded-2xl"
+                                 alt=""/>
+                            {/*<Image
                             src="/Products/WhiteClock.png"
                             alt="Picture of the author"
                             layout="responsive"
@@ -20,7 +27,8 @@ export default function Card({children, className, ...props}) {
                             objectFit="cover"
                             className="rounded-2xl"
                         />*/}
-                    </a>
+                        </a>
+                    </Link>
                 </div>
                 <div className="p-5">
                     <a href="#">
