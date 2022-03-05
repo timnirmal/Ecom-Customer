@@ -61,31 +61,70 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                 */}
 
 
-                <Card
-                    title="Card Title"
-                    description="Card description"
-                    image="components/Slidebar/Screenshot(1082).png"
-                />
-
-                <div className="flex flex-col items-center p-5 sm:justify-center sm:pt-9 sm:flex-row text-justify relative">
-                <div className="border-solid border-2 border-black basis-[13%] sm:mr-10 min-w-1/5 rounded-lg ">
-                    <Image
-                        src="/Products/WhiteClock.png"
-                        alt="Profile"
-                        width={600}
-                        height={400}
-                        layout="responsive"
-                        objectFit="cover"
-                        className="rounded-lg"
-                    />
-                </div>
-                </div>
-
-
-
-
                 <Carousel playTime={3000}/>
 
+                <section className="container mx-auto px-0 md:px-4 py-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-4">
+                        <Card
+                            title="Card Title"
+                            description="Card description"
+                            image="components/Slidebar/Screenshot(1082).png"
+                        />
+                        <Card
+                            title="Card Title"
+                            description="Card description"
+                            image="components/Slidebar/Screenshot(1082).png"
+                        />
+                        <Card
+                            title="Card Title"
+                            description="Card description"
+                            image="components/Slidebar/Screenshot(1082).png"
+                        />
+                        <Card
+                            title="Card Title"
+                            description="Card description"
+                            image="components/Slidebar/Screenshot(1082).png"
+                        />
+                    </div>
+                </section>
+
+                <div className="static">
+                    <div className="static"><p>Static child</p></div>
+                    <div className="inline-block"><p>Static sibling</p></div>
+                    <div className="absolute "><p>Absolute child</p></div>
+                    <div className="inline-block"><p>Static sibling</p></div>
+                </div>
+
+
+
+                {/* <div className="p-5 sm:justify-center sm:pt-9 sm:flex-row text-justify relative">
+                    <div className="border-solid border-2 border-black basis-[13%] sm:mr-10 min-w-1/5 rounded-lg ">
+                        <Image
+                            src="/Products/WhiteClock.png"
+                            alt="Profile"
+                            width={600}
+                            height={400}
+                            layout="responsive"
+                            objectFit="cover"
+                            className="rounded-lg"
+                        />
+                    </div>
+                </div>
+
+
+                <section className="container mx-auto px-0 md:px-4 py-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-4">
+                        {CardData.map((element, index) => (
+                            <CardLikeComment
+                                key={index}
+                                title={element.title}
+                                likes={element.likes}
+                                order={index + 1}
+                                image={element.image}
+                            />
+                        ))}
+                    </div>
+                </section>*/}
 
             </Layout>
         </div>

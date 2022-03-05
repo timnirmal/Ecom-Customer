@@ -5,17 +5,16 @@ import {BsChatSquareFill} from "react-icons/bs";
 import Image from 'next/image'
 
 
-
 const CardLikeComment = ({title, likes, order, image}) => {
     return (
         <div
             className="bg-white hover:bg-gray-800 shadow-xl hover:shadow-none cursor-pointer w-80 rounded-3xl flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
             <div className="relative mt-2 mx-2;">
                 <div className="h-56 rounded-2xl overflow-hidden">
-                    {/*<img src={image} className="object-cover w-full h-full" alt=""/>*/}
-                    <div className="object-cover w-full h-full">
                     <a href="#">
-                        <Image
+                        <img src={image} className="object-cover w-full h-full" alt=""/>
+                        {/*
+                         <Image
                             src="/Products/WhiteClock.png"
                             alt="Picture of the author"
                             layout="responsive"
@@ -23,8 +22,8 @@ const CardLikeComment = ({title, likes, order, image}) => {
                             width={200}
                             objectFit="cover"
                         />
+                        */}
                     </a>
-                    </div>
                 </div>
                 <div className="absolute bottom-0 left-0 -mb-4 ml-3 flex flex-row">
                     <div

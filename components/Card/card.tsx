@@ -1,20 +1,24 @@
 import Image from 'next/image'
+import React from "react";
 
 export default function Card({children, className, ...props}) {
     return (
         <div className={`card ${className}`} {...props}>
             <div
-                className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                <div className="h-56 rounded-2xl overflow-hidden w-96 relative">
+                //className="max-w-sm bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
+                className="bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
+                <div className="lg:h-72 md:h-56 sm:h-28 rounded-lg overflow-hidden relative p-3">
                     <a href="#">
-                        <Image
+                        <img src={"/Products/WhiteClock.png"} className="object-cover w-full h-full rounded-2xl" alt=""/>
+                        {/*<Image
                             src="/Products/WhiteClock.png"
                             alt="Picture of the author"
                             layout="responsive"
-                            height={120}
-                            width={200}
+                            height={12}
+                            width={20}
                             objectFit="cover"
-                        />
+                            className="rounded-2xl"
+                        />*/}
                     </a>
                 </div>
                 <div className="p-5">
