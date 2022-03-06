@@ -19,7 +19,7 @@ const ProductPage: NextPage<NextAppPageProps> = ({}) => {
     let ProductData =
         {
             id: "1",
-            color: "text-red-500",
+            color: "red-500",
             brandName: "BRAND NAME",
             productName: "PRODUCT NAME",
             productPrice: "$100",
@@ -80,12 +80,12 @@ const ProductPage: NextPage<NextAppPageProps> = ({}) => {
                 })*/}
 
                 <ProductOverView
+                    color={ProductData.color}
                     brandName={ProductData.brandName}
                     productName={ProductData.productName}
                     productPrice={ProductData.productPrice}
                     productDescription={ProductData.productDescription}
                     productImage={ProductData.productImage}
-                    color={ProductData.color}
                     rating={ProductData.rating}
                     properties={ProductData.properties}
                     id={ProductData.id}
