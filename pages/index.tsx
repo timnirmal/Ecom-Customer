@@ -14,7 +14,7 @@ import CardData from "../components/Card/CardData";
 import CardLikeComment from "../components/Card/CardLikeComment";
 import FourItemCard from "../components/Card/FourItemCard";
 
-import Comment from "../pages/product/[id]";
+import Product from "../pages/product/[id]";
 
 
 // define the shape of the SignUp form's fields
@@ -34,27 +34,9 @@ const myLoader = ({src, width, quality}) => {
 }
 
 const IndexPage: NextPage<NextAppPageProps> = ({}) => {
-    const [isSignIn, setIsSignIn] = useState(true)
-    const {loading, signIn, signUp, user, signInWithGithub} = useAuth()
-    // Now since we have our form ready, what we're going to need for signing up our users
-    // 1. let users provide email and password
-    const [values, handleChange] = useFormFields<SignUpFieldProps>(FORM_VALUES)
-
-    // 2. send the provided details to Supabase
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault()
-        isSignIn ? signIn(values) : signUp(values)
-    }
-
-    const images = [
-        "components/Slidebar/Screenshot(1082).png"
-    ];
-
     return (
         <div>
             <Layout useBackdrop={true} usePadding={false}>
-                <Example/>
-
                 {/*<Image
                     src="/photo-1464822759023-fed622ff2c3b.avif"
                     alt="Picture of the author"

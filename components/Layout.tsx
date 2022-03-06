@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import Header from './Header'
 import Footer from './Footer'
 import { MessageList, useMessage } from '../lib/message'
+import Example from "../pages/test";
 
 type LayoutProps = {
   usePadding?: boolean
@@ -18,6 +19,7 @@ const FullLayout: FunctionComponent<LayoutProps> = ({
   return (
     <Fragment>
       <Header />
+        <Example/>
       <main
         className={classNames(
           'w-full h-screen mx-auto relative',
