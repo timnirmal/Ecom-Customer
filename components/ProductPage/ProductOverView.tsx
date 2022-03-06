@@ -3,6 +3,47 @@ import ReviewDisplay from "./ReviewDisplay";
 
 
 export default function ProductOverView({children, className, ...props}) {
+    //console.log(props.properties);
+    console.log(props.properties[0].name);
+    console.log(props.properties[0].value);
+    console.log(props.properties[0].value[0]);
+    console.log(props.brandName)
+    // find object with name "name"
+    // find object with name "value"
+    console.log()
+    const [color, setColor] = React.useState(props.properties[1].value[0]);
+
+    const grayColor = "gray-700 "
+    const redColor = "red-700 "
+    const greenColor = "green-700 "
+    const blueColor = "blue-700 "
+    const yellowColor = "yellow-700 "
+    const orangeColor = "orange-700 "
+    const purpleColor = "purple-700 "
+    const pinkColor = "pink-700 "
+    const tealColor = "teal-700 "
+    const indigoColor = "indigo-700 "
+    const brownColor = "brown-700 "
+    const blackColor = "black-700 "
+    const whiteColor = "white-700 "
+    const lightGrayColor = "gray-300 "
+    const darkGrayColor = "gray-900 "
+    const lightRedColor = "red-300 "
+    const lightGreenColor = "green-300 "
+    const lightBlueColor = "blue-300 "
+    const lightYellowColor = "yellow-300 "
+    const lightOrangeColor = "orange-300 "
+    const lightPurpleColor = "purple-300 "
+    const lightPinkColor = "pink-300 "
+    const lightTealColor = "teal-300 "
+    const lightIndigoColor = "indigo-300 "
+    const lightBrownColor = "brown-300 "
+    const lightBlackColor = "black-300 "
+    const lightWhiteColor = "white-300 "
+
+
+
+
     return (
         <div className={`card ${className}`} {...props}>
 
@@ -10,15 +51,19 @@ export default function ProductOverView({children, className, ...props}) {
                 <div className="container px-5 py-24 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img alt="ecommerce"
-                             className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-                             src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"/>
+                             className="lg:w-1/2 lg:h-140 object-top md:hover:h-full w-full object-cover object-center rounded border border-gray-200"
+                             //src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"]
+                             src={props.productImage}
+                        />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">{props.brandName}</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                                 {props.productName}
                             </h1>
 
                             <div className="flex mb-4">
+                                {/* Ratings */}
                                 <span className="flex items-center">
                                     <ReviewDisplay
                                         rating={props.rating}
@@ -26,79 +71,81 @@ export default function ProductOverView({children, className, ...props}) {
                                     />
                                 </span>
 
-
-
-
+                                {/* Social Media Share */}
                                 <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
                                     <a className="text-gray-500">
                                         <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5"
                                              viewBox="0 0 24 24">
                                             <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
                                         </svg>
-            </a>
+                                    </a>
                                     <a className="ml-2 text-gray-500">
                                         <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5"
                                              viewBox="0 0 24 24">
                                             <path
                                                 d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
                                         </svg>
-            </a>
+                                    </a>
                                     <a className="ml-2 text-gray-500">
                                         <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5"
                                              viewBox="0 0 24 24">
                                             <path
                                                 d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
                                         </svg>
-            </a>
+                                    </a>
                                 </span>
                             </div>
-                            <p className="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave
 
-                                tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps
+                            <p className="leading-relaxed">{props.productDescription}</p>
 
-                                cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric.
-
-                                Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo
-
-                                tattooed umami cardigan.</p>
                             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-
                                 <div className="flex">
-
                                     <span className="mr-3">Color</span>
-
-                                    <button
-
-                                        className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"/>
-
-                                    <button
-
-                                        className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"/>
-
-                                    <button
-
-                                        className="border-2 border-gray-300 ml-1 bg-red-500 rounded-full w-6 h-6 focus:outline-none"/>
+                                    {   // Product Color Options
+                                        props.properties[1].name === "Color" &&
+                                        <span >{props.properties[1].value.map((colorName, index) => {
+                                            return (
+                                                <button
+                                                    //className={"border-2 border-gray-300 ml-1 rounded-full w-6 h-6 "+ ("bg-"+colorName+"-700") + " focus:outline outline-"+(colorName)+"-700" }/>
+                                                    className={"border-2 border-gray-300 ml-1 rounded-full w-6 h-6 "+ ("bg-"+colorName+"-700") + " focus:outline "+("outline-"+colorName+"-700") }
+                                                    onClick={() => {
+                                                        setColor(colorName)
+                                                        console.log(colorName)
+                                                    }}
+                                                    key={index}
+                                                />
+                                                // TODO: Use state get color from button click and set it as the focused color
+                                            )
+                                        })}</span>
+                                    }
+                                    {}
+                                    <div className="flex justify-center">
+                                            <div className="form-check">
+                                                <input
+                                                    className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="radio"
+                                                    name="flexRadioDefault"
+                                                    id="flexRadioDefault1"/>
+                                                <input
+                                                    className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                    type="radio"
+                                                    name="flexRadioDefault"
+                                                    id="flexRadioDefault2" checked/>
+                                            </div>
+                                    </div>
 
                                 </div>
 
+
                                 <div className="flex ml-6 items-center">
-
                                     <span className="mr-3">Size</span>
-
                                     <div className="relative">
-
                                         <select
-
                                             className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
-
                                             <option>SM</option>
-
                                             <option>M</option>
-
                                             <option>L</option>
-
                                             <option>XL</option>
-
                                         </select>
 
                                         <span
@@ -117,7 +164,10 @@ export default function ProductOverView({children, className, ...props}) {
                             </div>
                             <div className="flex">
 
-                                <span className="title-font font-medium text-2xl text-gray-900">$58.00</span>
+                                {   // Product Price
+                                    props.productPrice &&
+                                    <span className="title-font font-medium text-2xl text-gray-900">{props.productPrice}</span>
+                                }
 
                                 <button
 
@@ -163,4 +213,10 @@ Half star
                                     </svg>
 
 
+*/}
+
+{/*
+<span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+    {product}
+</span>
 */}

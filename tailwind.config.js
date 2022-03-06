@@ -6,7 +6,13 @@ module.exports = {
     fontFamily: {
       sans: ['Varela Round', ...fontFamily.sans],
     },
-    extend: {},
+    extend: {
+      spacing: {
+        '132': '32rem',
+        '140': '40rem',
+        '148': '48rem',
+      }
+    },
   },
   variants: {
     extend: {},
