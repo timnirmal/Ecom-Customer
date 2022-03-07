@@ -40,7 +40,8 @@ const ProductPage: NextPage<NextAppPageProps> = ({}) => {
                 },
                 {
                     name: "Material",
-                    value: "Cotton",
+                    value: ["Cotton", "Polyester", "Nylon"],
+                    //value: "Cotton",
                     display: true
                 },
                 {
@@ -54,6 +55,15 @@ const ProductPage: NextPage<NextAppPageProps> = ({}) => {
                     display: false
                 }
             ],
+            // TODO: Code again with property data like below
+            property:{
+                sizes: ["SM", "M", "L", "XL"],
+                colors: ["blue", "red", "white"],
+                colorsAvailability: [true, true, true],
+                materials: ["Cotton", "Polyester", "Nylon"],
+                weight: "100g",
+                dimensions: "100x100x100"
+            },
             category: "Category",
             subCategory: "Sub Category",
             tags: ["tag1", "tag2", "tag3"],

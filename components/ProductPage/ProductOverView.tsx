@@ -1,6 +1,55 @@
 import React from "react";
 import ReviewDisplay from "./ReviewDisplay";
 
+function ifArray(arr: any) {
+    if (Array.isArray(arr)) {
+        return arr;
+    } else {
+        return [arr];
+    }
+}
+
+
+function ifArrayDo(arr: any, material: any, setMaterial: any, setMaterialType: any) {
+    console.log("Type of arr : ", typeof arr);
+    console.log("Material Arr : ", material);
+    if (Array.isArray(arr)) {
+        return (
+            <div>
+                <select
+                    value={material} onChange={setMaterialType}
+                    className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
+                    {
+                        arr.map((materialItem, index) => {
+                            return (
+                                <option
+                                    className="text-gray-700"
+                                    value={materialItem}
+                                    key={index}
+                                >
+                                    {materialItem}
+                                </option>
+                            )
+                        })
+                    }
+                </select>
+                <span
+                    className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                     className="w-4 h-4" viewBox="0 0 24 24">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </span>
+            </div>
+        );
+    } else {
+        console.log("Material : ", material);
+        return (
+            <span> {arr} </span>
+        );
+    }
+}
+
 
 export default function ProductOverView({children, className, ...props}) {
     //console.log(props.properties);
@@ -13,14 +62,22 @@ export default function ProductOverView({children, className, ...props}) {
     //console.log()
     const [color, setColor] = React.useState(props.properties[1].value[0]);
     const [size, setSize] = React.useState(props.properties[0].value[0]);
+    const [material, setMaterial] = !Array.isArray(props.properties[2].value) ? React.useState(props.properties[2].value)
+        : React.useState(props.properties[2].value[0]);
 
     function setSizeRadio(e) {
         setSize(e.target.value);
         console.log(e.target.value);
     }
 
+    function setMaterialType(e) {
+        setMaterial(e.target.value);
+        console.log(e.target.value);
+    }
+
     console.log(color);
     console.log(size);
+    console.log(material);
 
     {
         const grayColor = "gray-700 "
@@ -76,7 +133,7 @@ export default function ProductOverView({children, className, ...props}) {
                                 <span className="flex items-center">
                                     <ReviewDisplay
                                         rating={props.rating}
-                                        color={"text-"+props.color}
+                                        color={"text-" + props.color}
                                     />
                                 </span>
 
@@ -110,7 +167,7 @@ export default function ProductOverView({children, className, ...props}) {
 
                             <p className="leading-relaxed">{props.productDescription}</p>
 
-                            <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+                            <div className="flex mt-6 items-center pb-5">
                                 <div className="flex">
                                     <span className="mr-3">Color</span>
                                     {/*   // Product Color Options
@@ -197,7 +254,65 @@ export default function ProductOverView({children, className, ...props}) {
                                 </div>
                             </div>
 
+                            {/* Other Properties */}
 
+                            <div className="flex  items-center pb-5 border-b-2 border-gray-200 mb-5">
+                                {/*<div className="flex">
+                                    <span className="mr-3">Color</span>
+
+                                    {   // Product Color Options
+                                        props.properties[1].name === "Color" &&
+                                        <span>{props.properties[1].value.map((colorName, index) => {
+                                            return (
+                                                <input
+                                                    className={"form-check-input appearance-none rounded-full h-6 w-6 border border-gray-300 " +
+                                                        ("bg-" + colorName + "-700") + " focus:outline " + ("outline-" + colorName + "-700") +
+                                                        //"bg-red-700 focus:outline outline-red-700" +
+                                                        ("checked:bg-" + colorName + "-600 checked:border-" + colorName + "-600") +
+                                                        //"checked:bg-red-600 checked:border-red-600 " +
+                                                        "focus:outline-none " +
+                                                        "transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"}
+                                                    //form-radio h-6 w-6 checked:bg-green-500 text-green-500 p-3 my-4
+                                                    type="radio"
+                                                    name="colorRadio"
+                                                    id="colorRadio"
+                                                    onClick={() => {
+                                                        setColor(colorName)
+                                                        console.log(colorName)
+                                                    }}
+                                                    value={colorName}
+                                                    key={index}
+                                                    checked={colorName === color}
+                                                />
+                                                // TODO: Use state get color from button click and set it as the focused color
+
+                                                // TODO: Fix colors
+                                            )
+                                        })}</span>
+                                        //https://stackoverflow.com/questions/70845642/cant-change-radio-button-background-color-on-tailwind-v3/70845747
+                                    }
+
+                                </div>*/}
+
+                                <div className="flex ml-6 items-center">
+                                    <span className="mr-3">Size</span>
+                                    <div className="relative">
+                                        {
+                                            props.properties[2].name === "Material" &&
+                                            ifArrayDo(props.properties[2].value, material, setMaterial, setMaterialType)
+
+                                        }
+                                        {/*   // Product Price
+                                            props.properties[2].name === "Material" &&
+                                            <span
+                                                className="title-font font-medium text-2xl text-gray-900">{props.properties[2].value}</span>
+                                        */}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {/* Price, Buy Section */}
                             <div className="flex">
                                 {   // Product Price
                                     props.productPrice &&
@@ -205,7 +320,8 @@ export default function ProductOverView({children, className, ...props}) {
                                         className="title-font font-medium text-2xl text-gray-900">{props.productPrice}</span>
                                 }
 
-                                <button className={"flex ml-auto text-white bg-"+(props.color)+" border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"}>
+                                <button
+                                    className={"flex ml-auto text-white bg-" + (props.color) + " border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"}>
                                     Add to Cart
                                 </button>
 
@@ -214,7 +330,18 @@ export default function ProductOverView({children, className, ...props}) {
                                 >
                                     <svg fill="white" strokeLinecap="round" strokeLinejoin="round"
                                          strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
-                                        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                                        <path
+                                            d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                                    </svg>
+                                </button>
+
+                                <button className="rounded-full w-10 h-10 bg-gray-400 p-0 border-0 inline-flex items-center justify-center
+                                text-gray-500 ml-4 hover:bg-blue-600"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20"
+                                         fill="currentColor">
+                                        <path
+                                            d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
                                     </svg>
                                 </button>
 
