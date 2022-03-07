@@ -42,6 +42,7 @@ const ProductPage: NextPage<NextAppPageProps> = ({}) => {
                     name: "Material",
                     value: ["Cotton", "Polyester", "Nylon"],
                     //value: "Cotton",
+
                     display: true
                 },
                 {
