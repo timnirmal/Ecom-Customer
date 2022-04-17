@@ -29,6 +29,31 @@ export const AuthProvider: FunctionComponent = ({
     const [ userLoading, setUserLoading ] = useState(true)
     const [ loggedIn, setLoggedin ] = useState(false)
 
+    const signUp = async (payload: SupabaseAuthPayload) => {
+        try {
+            setLoading(true)
+            const {error} = await supabaseClient.auth.signUp(payload)
+            if (error) {
+                console.error(error, "error 1")
+                if (handleMessage) {
+                    handleMessage({message: error.message, type: 'error'})
+                }
+            } else {
+                await insertProfile(user, payload)
+                console.error(error, "error 3")
+                handleMessage({
+                    message: 'Signup successful. Please check your inbox for a confirmation email!',
+                    type: 'success'
+                })
+            }
+        } catch (error) {
+            console.error(error, "error 2")
+            handleMessage({message: error.error_description || error, type: 'error'})
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const insertProfile = async (user: User | null, payload) => {
         console.log('insertProfile User', user)
         console.log('insertProfile Pyaload', payload)
@@ -54,35 +79,6 @@ export const AuthProvider: FunctionComponent = ({
         }
     }
 
-    const signUp = async (payload: SupabaseAuthPayload) => {
-        try {
-            setLoading(true)
-            const {error} = await supabaseClient.auth.signUp(payload)
-            if (error) {
-                console.error(error, "error 1")
-                if (handleMessage) {
-                    handleMessage({message: error.message, type: 'error'})
-                }
-            } else {
-                if (user){
-                    console.error("Sign up success", user, payload)
-                    await insertProfile(user, payload)
-                }
-                handleMessage({
-                    message: 'Signup successful. Please check your inbox for a confirmation email!',
-                    type: 'success'
-                })
-            }
-        } catch (error) {
-            console.error(error, "error 2")
-            handleMessage({message: error.error_description || error, type: 'error'})
-        } finally {
-            setLoading(false)
-        }
-    }
-
-
-
     const signIn = async (payload: SupabaseAuthPayload) => {
         console.log('signin', payload)
         try {
@@ -91,14 +87,15 @@ export const AuthProvider: FunctionComponent = ({
             if (error) {
                 handleMessage({message: error.message, type: 'error'})
             } else {
-                try {
-                    console.log("Sign In Success", user, payload)
-                    await insertProfile(user, payload)
-                    handleMessage({message: `Welcome, ${user.email}`, type: 'success'})
-                } catch (error) {
-                    console.error(error, "error 3")
-                    handleMessage({message: "Check your Email for Sign Up link", type: 'error'})
-                }
+                handleMessage({ message: `Welcome, ${user.email}`, type: 'success' })
+
+                // Now we need to Update Profile Table
+                console.log(user)
+                await insertProfile(user, payload)
+
+
+
+
             }
         } catch (error) {
             handleMessage({message: error.error_description || error, type: 'error'})
@@ -138,9 +135,7 @@ export const AuthProvider: FunctionComponent = ({
 
         const { data: authListener } = supabaseClient.auth.onAuthStateChange(
             async (event, session) => {
-                console.log('authListener', event)
-                console.log('authListener Session', session)
-
+                console.log('authListener', event, session)
                 const user = session?.user! ?? null
                 setUserLoading(false)
                 await setServerSession(event, session)

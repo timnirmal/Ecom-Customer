@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React from "react";
 
 import {useRouter} from 'next/router'
@@ -17,16 +18,31 @@ export default function Card({children, className, ...props}) {
 
                     <Link href="/product/[id]" as={`/product/${title}`}>
                         <a href="#">
-                            <img src={props.image} className="object-cover w-full h-full rounded-2xl"
+                            <img src={"/Products/WhiteClock.png"} className="object-cover w-full h-full rounded-2xl"
                                  alt=""/>
+                            {/*<Image
+
+                            src="/Products/WhiteClock.png"
+                            alt="Picture of the author"
+                            layout="responsive"
+                            height={12}
+                            width={20}
+                            objectFit="cover"
+                            className="rounded-2xl"
+                        />*/}
+
                         </a>
                     </Link>
                 </div>
                 <div className="p-5">
                     <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{props.title}</h5>
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
+                            technology
+                            acquisitions 2021</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{props.description}</p>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
+                        technology
+                        acquisitions of 2021 so far, in reverse chronological order.</p>
                     <a href="#"
                        className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Read more

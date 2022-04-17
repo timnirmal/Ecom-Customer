@@ -18,8 +18,8 @@ export const MessageProvider: FunctionComponent = ({ children }) => {
   }
 
   return (
-      <MessageContext.Provider value={{ messages, handleMessage }}>
-        {children}
-      </MessageContext.Provider>
+    <MessageContext.Provider value={{ messages, handleMessage }}>
+      {children}
+    </MessageContext.Provider>
   )
 }
