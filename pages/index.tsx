@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import Carousel from "../components/Carousel/Carousel";
 import Card from "../components/Card/card";
 import FourItemCard from "../components/Card/FourItemCard";
+import {useRouter} from "next/router";
 
 
 // define the shape of the SignUp form's fields
@@ -26,48 +27,66 @@ const myLoader = ({src, width, quality}) => {
 // Create FourItemCard data till api is ready
 const FourItemCardData = [
     {
-        id: 1,
-        name: 'Item 1',
-        src: '/Products/WhiteClock.png',
-    },
-    {
-        id: 2,
-        name: 'Item 2',
-        src: '/Products/WhiteClock.png',
-    },
-    {
-        id: 3,
-        name: 'Item 3',
-        src: '/Products/WhiteClock.png',
-    },
-    {
-        id: 4,
-        name: 'Item 4',
-        src: '/Products/WhiteClock.png',
+        title: "T-Shirts",
+        description: "Card description",
+        actionbutton: true,
+        actionbuttontext: "See More",
+        actionurl: "/hi",
+        product: [
+            {
+                id: 1,
+                name: 'Item 1',
+                src: '/Products/WhiteClock.png',
+            },
+            {
+                id: 2,
+                name: 'Item 2',
+                src: '/Products/WhiteClock.png',
+            },
+            {
+                id: 3,
+                name: 'Item 3',
+                src: '/Products/WhiteClock.png',
+            },
+            {
+                id: 4,
+                name: 'Item 4',
+                src: '/Products/WhiteClock.png',
+            }
+        ]
     }
 ]
 
 // Create Category data till api is ready
 const CategoryData = [
     {
-        id: 1,
-        name: 'Item 1',
-        src: '/Products/WhiteClock.png',
-    },
-    {
-        id: 2,
-        name: 'Item 2',
-        src: '/Products/WhiteClock.png',
-    },
-    {
-        id: 3,
-        name: 'Item 3',
-        src: '/Products/WhiteClock.png',
-    },
-    {
-        id: 4,
-        name: 'Item 4',
-        src: '/Products/WhiteClock.png',
+        title: "Shop by Category",
+        description: "Card description",
+        actionbutton: false,
+        actionbuttontext: "See More",
+        actionurl: "/hi",
+        product: [
+            {
+                id: 1,
+                name: 'Item 1',
+                src: '/Products/WhiteClock.png',
+            },
+            {
+                id: 2,
+                name: 'Item 2',
+                src: '/Products/WhiteClock.png',
+            },
+            {
+                id: 3,
+                name: 'Item 3',
+                src: '/Products/WhiteClock.png',
+            },
+            {
+                id: 4,
+                name: 'Item 4',
+                src: '/Products/WhiteClock.png',
+            }
+        ]
     }
 ]
 
@@ -101,6 +120,8 @@ const OtherData = [
 
 
 const IndexPage: NextPage<NextAppPageProps> = ({}) => {
+    const router = useRouter();
+
     return (
         <div>
             <Layout useBackdrop={true} usePadding={false}>
@@ -113,7 +134,6 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                 // fill,fixed,intrinsic,responsive,undefined.
                 */}
 
-
                 <Carousel playTime={3000}/>
 
 
@@ -121,39 +141,30 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                     <div
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-4 ">
 
-
                         <FourItemCard
-                            title="T-Shirts"
-                            data={FourItemCardData}
-                            description="Card description"
-                            actionbutton={true}
-                            actionbuttontext="See More"
+                            title={FourItemCardData[0].title}
+                            data={FourItemCardData[0].product}
+                            description={FourItemCardData[0].description}
+                            actionbutton={FourItemCardData[0].actionbutton}
+                            actionbuttontext={FourItemCardData[0].actionbuttontext}
                             action={() => {
                                 console.log('Action')
+                                router.push(FourItemCardData[0].actionurl)
                             }}
+                            actionurl={FourItemCardData[0].actionurl}
                         />
 
-                        {/*<FourItemCard
-                            title="Shop by Category"
-                            Item1="T-Shirt"
-                            Item1Image="/Products/WhiteClock.png"
-                            Item2="Jeans"
-                            Item2Image="/Products/WhiteClock.png"
-                            Item3="Socks"
-                            Item3Image="/Products/WhiteClock.png"
-                            Item4="Jackets"
-                            Item4Image="/Products/WhiteClock.png"
-                            description="Card description"
-                        />*/}
                         <FourItemCard
-                            title="Shop by Category"
-                            data={CategoryData}
-                            description="Card description"
-                            actionButton=""
+                            title={CategoryData[0].title}
+                            data={CategoryData[0].product}
+                            description={CategoryData[0].description}
+                            actionbutton={CategoryData[0].actionbutton}
                             action={() => {
                                 console.log('action')
                             }
                             }
+                            actionbuttontext={CategoryData[0].actionbuttontext}
+                            actionurl={CategoryData[0].actionurl}
                         />
 
                         {OtherData.map((item, index) => {
@@ -176,60 +187,6 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
 
                     </div>
                 </section>
-
-
-                {/* <div className="flex flex-wrap">
-                    <div className="flex-1"><Card
-                        title="Card Title"
-                        description="Card description"
-                        image="components/Slidebar/Screenshot(1082).png"
-                    /></div>
-                    <div className="flex-1"><Card
-                        title="Card Title"
-                        description="Card description"
-                        image="components/Slidebar/Screenshot(1082).png"
-                    /></div>
-                    <div className="flex-1"><Card
-                        title="Card Title"
-                        description="Card description"
-                        image="components/Slidebar/Screenshot(1082).png"
-                    /></div>
-                    <div><Card
-                        title="Card Title"
-                        description="Card description"
-                        image="components/Slidebar/Screenshot(1082).png"
-                    /></div>
-                </div>
-
-
-                <div className="p-5 sm:justify-center sm:pt-9 sm:flex-row text-justify relative">
-                    <div className="border-solid border-2 border-black basis-[13%] sm:mr-10 min-w-1/5 rounded-lg ">
-                        <Image
-                            src="/Products/WhiteClock.png"
-                            alt="Profile"
-                            width={600}
-                            height={400}
-                            layout="responsive"
-                            objectFit="cover"
-                            className="rounded-lg"
-                        />
-                    </div>
-                </div>
-
-
-                <section className="container mx-auto px-0 md:px-4 py-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-4">
-                        {CardData.map((element, index) => (
-                            <CardLikeComment
-                                key={index}
-                                title={element.title}
-                                likes={element.likes}
-                                order={index + 1}
-                                image={element.image}
-                            />
-                        ))}
-                    </div>
-                </section>*/}
 
             </Layout>
         </div>

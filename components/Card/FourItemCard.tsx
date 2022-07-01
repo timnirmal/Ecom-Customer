@@ -13,9 +13,9 @@ function ItemCard(props: { src: any, item: any }) {
 
 function SeeMoreButton(props: { text: string, action: any, url: string }) {
     return <div className="pl-5 pb-6 -mt-1 -ml-1">
-        <a href="#"
+        <a href={props.url}
            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            See More
+            {props.text}
 
             <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
                  xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +53,11 @@ export default function FourItemCard({children, className, ...props}) {
 
 
                 {/*See More Button*/}
-                {props.actionbutton ? <SeeMoreButton text={props.actionbuttontext} action={props.action}/> : null}
+                {props.actionbutton ? <SeeMoreButton text={props.actionbuttontext}
+                                                     action={props.action}
+                                                     url={props.actionurl}
+                    />
+                    : null}
 
             </div>
             {children}
