@@ -1,4 +1,3 @@
-
 import {NextPage} from 'next'
 import {NextAppPageProps} from '../types/app'
 import Layout from '../components/Layout'
@@ -7,11 +6,17 @@ import Card from "../components/Card/card";
 import FourItemCard from "../components/Card/FourItemCard";
 
 
+// define the shape of the SignUp form's fields
+type SignUpFieldProps = {
+    email: string,
+    password: string
+}
 
-// layout for page
-
-import Admin from "/layout/Admin.js";
-
+// the value we'd like to initialize the SignUp form with
+const FORM_VALUES: SignUpFieldProps = {
+    email: '',
+    password: ''
+}
 
 const myLoader = ({src, width, quality}) => {
     return `https://localhost:3000/public/${src}?w=${width}&q=${quality || 75}`
@@ -69,7 +74,7 @@ const CategoryData = [
 // Create Other data cards
 const OtherData = [
     {
-        id: 1,
+        id: 3,
         name: 'Noteworthy technology acquisitions 2021',
         src: '/Products/WhiteClock.png',
         description: 'Card description',
@@ -77,14 +82,14 @@ const OtherData = [
         url: '#2',
     },
     {
-        id: 2,
+        id: 6,
         name: 'Noteworthy technology acquisitions 2021',
         src: '/Products/WhiteClock.png',
         description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
         actionbutton: false,
     },
     {
-        id: 3,
+        id: 10,
         name: 'Men-White-Watch',
         src: '/Products/WhiteClock.png',
         description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
@@ -169,31 +174,72 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                             )
                         })}
 
+                    </div>
+                </section>
 
-                    </div>
-                    <div className="w-full xl:w-4/12 px-4">
-                        <CardBarChart />
+
+                {/* <div className="flex flex-wrap">
+                    <div className="flex-1"><Card
+                        title="Card Title"
+                        description="Card description"
+                        image="components/Slidebar/Screenshot(1082).png"
+                    /></div>
+                    <div className="flex-1"><Card
+                        title="Card Title"
+                        description="Card description"
+                        image="components/Slidebar/Screenshot(1082).png"
+                    /></div>
+                    <div className="flex-1"><Card
+                        title="Card Title"
+                        description="Card description"
+                        image="components/Slidebar/Screenshot(1082).png"
+                    /></div>
+                    <div><Card
+                        title="Card Title"
+                        description="Card description"
+                        image="components/Slidebar/Screenshot(1082).png"
+                    /></div>
+                </div>
+
+
+                <div className="p-5 sm:justify-center sm:pt-9 sm:flex-row text-justify relative">
+                    <div className="border-solid border-2 border-black basis-[13%] sm:mr-10 min-w-1/5 rounded-lg ">
+                        <Image
+                            src="/Products/WhiteClock.png"
+                            alt="Profile"
+                            width={600}
+                            height={400}
+                            layout="responsive"
+                            objectFit="cover"
+                            className="rounded-lg"
+                        />
                     </div>
                 </div>
-                <div className="flex flex-wrap mt-4">
-                    <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-                        <CardPageVisits />
+
+
+                <section className="container mx-auto px-0 md:px-4 py-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-4">
+                        {CardData.map((element, index) => (
+                            <CardLikeComment
+                                key={index}
+                                title={element.title}
+                                likes={element.likes}
+                                order={index + 1}
+                                image={element.image}
+                            />
+                        ))}
                     </div>
-                    <div className="w-full xl:w-4/12 px-4">
-                        <CardSocialTraffic />
-                    </div>
-                </div>
-            </Admin>
-        </>
-    );
+                </section>*/}
+
+            </Layout>
+        </div>
+    )
 }
 
-//Dashboard.getLayout = (page) => <Admin page={page} />;
-
+export default IndexPage
 
 IndexPage.defaultProps = {
     meta: {
         title: 'Ecom'
     }
 }
-
