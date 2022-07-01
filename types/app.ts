@@ -8,6 +8,13 @@ export type NextAppPageProps = {
     meta: NextAppSEOProps
 }
 
+export type NextAppProductIDPageProps = {
+    meta: NextAppSEOProps,
+    userAgent?: string,
+    product?: object,
+    error?: string,
+}
+
 export type NextAppPageUserProps = {
     props: {
         user: User,

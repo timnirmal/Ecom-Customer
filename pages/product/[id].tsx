@@ -1,18 +1,71 @@
 import {useRouter} from 'next/router'
-import {useState, useEffect} from 'react'
 import {NextPage} from 'next'
-import {NextAppPageProps} from '../../types/app'
+import {NextAppProductIDPageProps} from '../../types/app'
 import Layout from '../../components/Layout'
 import Carousel from "../../components/Carousel/Carousel";
-import Card from "../../components/Card/card";
-import FourItemCard from "../../components/Card/FourItemCard";
 import Head from 'next/head'
 import ProductOverView from "../../components/ProductPage/ProductOverView";
+import {supabaseClient} from "../../lib/supabase";
 
 
-const ProductPage: NextPage<NextAppPageProps> = ({}) => {
-    const router = useRouter()
-    const {id} = router.query
+const ProductPage: NextPage<NextAppProductIDPageProps> = ({userAgent, product, error, children, ...props}) => {
+    console.log("UserAgent", userAgent)
+    console.log("UserAgent", userAgent)
+    console.log("UserAgent", userAgent)
+
+    console.log("Products", product)
+    console.log("Products", product)
+    console.log("Products", product)
+
+    console.log("Products Error", error)
+    console.log("Products Error", error)
+    console.log("Products Error", error)
+
+    // const router = useRouter()
+    // let {user} = router.query
+    // user = userAgent
+    //
+    // console.log("user", user)
+    // console.log("user", user)
+    // console.log("user", user)
+    // console.log("user tyep", typeof user)
+    // console.log("user tyep", typeof user)
+    // console.log("user tyep", typeof user)
+
+
+    // let id: string = ""
+    // // split user by last - and get last part
+    // if (typeof user === "string") {
+    //     id = user.split("-")[user.split("-").length - 1]
+    //     console.log("id inside", id)
+    //     console.log("id inside", id)
+    //     console.log("id inside", id)
+    // }
+    // console.log("user", id)
+    // console.log("user", id)
+    // console.log("user", id)
+
+
+    // async function getProductData() {
+    //     let {data, error} = await supabaseClient
+    //         .from('products')
+    //         .select("*")
+    //         .eq('id', id)
+    //
+    //     if (error) {
+    //         console.log("Error ", error)
+    //     }
+    //     console.log("Product Data", data)
+    //
+    //     return data
+    // }
+
+    //const data = getProductData();
+
+    console.log("Product Data in", product)
+    console.log("Product Data in", product)
+    console.log("Product Data in", product)
+
 
     // TODO: Search for product by Name and get the product data
     // In this page id means the product name/title
@@ -57,7 +110,7 @@ const ProductPage: NextPage<NextAppPageProps> = ({}) => {
                 }
             ],
             // TODO: Code again with property data like below
-            property:{
+            property: {
                 sizes: ["SM", "M", "L", "XL"],
                 colors: ["blue", "red", "white"],
                 colorsAvailability: [true, true, true],
@@ -77,9 +130,9 @@ const ProductPage: NextPage<NextAppPageProps> = ({}) => {
 
     return (
         <div>
-            <Head>
-                <title>{id}</title>
-            </Head>
+            {/*<Head>*/}
+            {/*    <title>{id}</title>*/}
+            {/*</Head>*/}
 
             <Layout useBackdrop={true} usePadding={false}>
 
@@ -113,7 +166,8 @@ const ProductPage: NextPage<NextAppPageProps> = ({}) => {
 
 
                 <section className="container mx-auto px-0 md:px-4 py-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-4 ">
+                    <div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-4 ">
                     </div>
                 </section>
 
@@ -125,8 +179,36 @@ const ProductPage: NextPage<NextAppPageProps> = ({}) => {
 
 export default ProductPage
 
+
 ProductPage.defaultProps = {
     meta: {
         title: "Product Page",
+    }
+}
+
+ProductPage.getInitialProps = async ({query}) => {
+
+    const user = query.id
+    let id: string;
+
+    if (typeof user === "string") {
+        id = user.split("-")[user.split("-").length - 1];
+    }
+    console.log("inital Props ", id);
+
+    let {data, error} = await supabaseClient
+        .from('products')
+        .select("*")
+        .eq('id', id)
+
+    if (error) {
+        console.log("Error ", error)
+    }
+    console.log("Product Data hhhhhhhh", data)
+
+    return {
+        userAgent: id,
+        product: data,
+        error: error
     }
 }

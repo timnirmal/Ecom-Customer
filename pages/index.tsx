@@ -160,6 +160,7 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                             return (
                                 <Card
                                     key={index}
+                                    id={item.id}
                                     title={item.name}
                                     src={item.src}
                                     description={item.description}

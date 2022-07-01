@@ -4,9 +4,14 @@ import {useRouter} from 'next/router'
 import Link from 'next/link'
 
 export default function Card({children, className, ...props}) {
-    const router = useRouter()
-    const {id} = router.query
+    //const router = useRouter()
+    //const {id} = router.query
+
     const title = props.title || 'Card'
+    // if title has white space, it will be replaced with dash
+    const titleDash = title.replace(/\s/g, '-')
+    // join titleDash and id
+    const titleId = `${titleDash}-${props.id}`
 
     console.log(props.actionbutton)
 
@@ -17,7 +22,7 @@ export default function Card({children, className, ...props}) {
                 className="bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
                 <div className="lg:h-72 md:h-56 sm:h-28 rounded-lg overflow-hidden relative p-3">
 
-                    <Link href="/product/[id]" as={`/product/${title}`}>
+                    <Link href="/product/[id]" as={`/product/${titleId}`}>
                         <a href="#">
                             <img src={props.src} className="object-cover w-full h-full rounded-2xl"
                                  alt=""/>
