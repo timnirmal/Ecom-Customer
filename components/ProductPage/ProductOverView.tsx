@@ -1,5 +1,6 @@
 import React from "react";
 import ReviewDisplay from "./ReviewDisplay";
+import PropTypes from "prop-types";
 
 function ifArray(arr: any) {
     if (Array.isArray(arr)) {
@@ -9,7 +10,10 @@ function ifArray(arr: any) {
     }
 }
 
-
+/**
+ * If array DO have a list of items (an array), then turn it into an option element.
+ * If not show it as string.
+ */
 function ifArrayDo(arr: any, material: any, setMaterial: any, setMaterialType: any) {
     console.log("Type of arr : ", typeof arr);
     console.log("Material Arr : ", material);
@@ -52,6 +56,9 @@ function ifArrayDo(arr: any, material: any, setMaterial: any, setMaterialType: a
 
 
 export default function ProductOverView({children, className, ...props}) {
+    console.log("ProductOverView props : ", props);
+
+
     //console.log(props.properties);
     //console.log(props.properties[0].name);
     //console.log(props.properties[0].value);
@@ -364,6 +371,44 @@ export default function ProductOverView({children, className, ...props}) {
         </div>
     );
 }
+
+
+ProductOverView.propTypes = {
+    productId: PropTypes.string.isRequired,
+    productName: PropTypes.string.isRequired,
+    productPrice: PropTypes.string.isRequired,
+}
+
+ProductOverView.defaultProps = {
+    productId: "",
+    productName: "",
+    productPrice: "",
+}
+
+// ProductOverView.getInitialProps = async (context: any) => {
+//     const { productId } = context.query;
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     //const product = await getProduct(productId);
+//     return {
+//         productId: productId,
+//         theproductname: "osjdojdsodjds",
+//         // productName: product.name,
+//         // productPrice: product.price,
+//         // productImage: product.image,
+//         // properties: product.properties,
+//         // color: product.color,
+//         // material: product.material,
+//     }
+// }
+
 
 
 {/*
