@@ -1,6 +1,9 @@
 import React from "react";
 import ReviewDisplay from "./ReviewDisplay";
 import PropTypes from "prop-types";
+import {useAuth} from "../../lib/auth";
+import {supabaseClient} from "../../lib/supabase";
+
 
 function ifArray(arr: any) {
     if (Array.isArray(arr)) {
@@ -56,7 +59,12 @@ function ifArrayDo(arr: any, material: any, setMaterial: any, setMaterialType: a
 
 
 export default function ProductOverView({children, className, ...props}) {
+    const {loading, signIn, signUp, users, signInWithGithub, userData} = useAuth()
+
     console.log("ProductOverView props : ", props);
+
+    console.log("ProductOverView User : ", users);
+    console.log("ProductOverView UserData : ", userData);
 
 
     //console.log(props.properties);
@@ -126,13 +134,13 @@ export default function ProductOverView({children, className, ...props}) {
                         <img alt="ecommerce"
                              className="lg:w-1/2 lg:h-140 object-top md:hover:h-full w-full object-cover object-center rounded border border-gray-200"
                             //src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"]
-                             src={props.productImage}
+                             src={props.productimage}
                         />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">{props.brandName}</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                                {props.productName}
+                                {props.productname}
                             </h1>
 
                             <div className="flex mb-4">
@@ -172,7 +180,7 @@ export default function ProductOverView({children, className, ...props}) {
                                 </span>
                             </div>
 
-                            <p className="leading-relaxed">{props.productDescription}</p>
+                            <p className="leading-relaxed">{props.productdescription}</p>
 
                             <div className="flex mt-6 items-center pb-5">
                                 <div className="flex">
@@ -330,11 +338,103 @@ export default function ProductOverView({children, className, ...props}) {
                                 <button
                                     className={"flex ml-auto text-white bg-" + (props.color) + " border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"}
                                     onClick={() => {
-                                        function addToCart(productId: any, productPrice, productName, color, material: string | undefined, productImage) {
+                                        function addToCart(productid: any, productprice, productname, color, material: string | undefined, productimage, size: string | undefined, userData: any) {
                                             // TODO: Send data to DB
+                                            const datalist = {
+                                                id: productid,
+                                                username: userData.username,
+                                            }
+                                            console.log(datalist)
+                                            console.log(typeof datalist.toString())
+
+
+                                            // data to jsonb
+                                            //let jsonb = JSON.stringify(data)
+                                            //jsonb="["+jsonb+"]"
+                                            //console.log(jsonb)
+                                            const sub = [
+                                                "a",
+                                                "b",
+                                                "c",
+                                                "d",
+                                                "e",
+                                                "f",
+                                            ]
+
+                                            const jsonb = [
+                                                {
+                                                    name: "a",
+                                                    value: "a",
+                                                },
+                                                {
+                                                    name: "b",
+                                                    value: "b",
+                                                }
+                                            ]
+
+                                            async function getData() {
+                                                let { data: wishlist, error } = await supabaseClient
+                                                    .from('wishlist')
+                                                    .select('items')
+
+                                                if (error) {
+                                                    console.log(error)
+                                                }
+                                                // console.log("Wishlist mmmmmmm", wishlist)
+                                                // console.log("Wishlist oooooooo", wishlist[0])
+                                                console.log("Wishlist kkkkkkk", wishlist[0].items)
+                                                return wishlist[0].items
+                                            }
+
+                                            async function postData() {
+
+                                                let prevData = await getData()
+                                                //getData()
+
+                                                console.log("Prev Data", prevData)
+
+                                                // const { data, error } = await supabaseClient
+                                                //     .from('wishlist')
+                                                //     .update({itemstr: sub})
+                                                //     .eq('id', users.id)
+
+                                                // const prevData = [
+                                                //     {
+                                                //         name: "a",
+                                                //         value: "a",
+                                                //     },
+                                                //     {
+                                                //         name: "b",
+                                                //         value: "b",
+                                                //     }
+                                                // ]
+                                                let dataC = {name:"slmdlsmsdsl", value: "a"}
+                                                // insert dataC into prevData
+                                                prevData.push(dataC)
+                                                prevData.push(dataC)
+                                                console.log("Presknksdnskssn", prevData)
+
+                                                const {data, error} = await supabaseClient
+                                                    .from('wishlist')
+                                                    // .insert([{id: users.id, items: jsonb}], {upsert: true})
+                                                    .update({items: prevData})
+                                                    .eq('id', users.id)
+
+                                                if (error) {
+                                                    console.log(error)
+                                                } else {
+                                                    console.log(data)
+                                                }
+                                                console.log("Data added", data)
+                                            }
+
+                                            postData()
+
+                                            // upsert data into the database
+
                                         }
 
-                                        addToCart(props.productId, props.productPrice, props.productName, props.color, props.material, props.productImage)
+                                        addToCart(props.productid, props.productprice, props.productname, props.color, material, props.productimage, size, userData)
                                     }}
                                 >
                                     Add to Cart
@@ -374,15 +474,15 @@ export default function ProductOverView({children, className, ...props}) {
 
 
 ProductOverView.propTypes = {
-    productId: PropTypes.string.isRequired,
-    productName: PropTypes.string.isRequired,
-    productPrice: PropTypes.string.isRequired,
+    productid: PropTypes.string.isRequired,
+    productname: PropTypes.string.isRequired,
+    productprice: PropTypes.string.isRequired,
 }
 
 ProductOverView.defaultProps = {
-    productId: "",
-    productName: "",
-    productPrice: "",
+    productid: "",
+    productname: "",
+    productprice: "",
 }
 
 // ProductOverView.getInitialProps = async (context: any) => {
@@ -408,7 +508,6 @@ ProductOverView.defaultProps = {
 //         // material: product.material,
 //     }
 // }
-
 
 
 {/*

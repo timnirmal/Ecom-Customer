@@ -101,14 +101,14 @@ const OtherData = [
         url: '#2',
     },
     {
-        id: 6,
+        id: 16,
         name: 'Noteworthy technology acquisitions 2021',
         src: '/Products/WhiteClock.png',
         description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
         actionbutton: false,
     },
     {
-        id: 10,
+        id: 17,
         name: 'Men-White-Watch',
         src: '/Products/WhiteClock.png',
         description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',

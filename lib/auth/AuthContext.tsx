@@ -16,6 +16,7 @@ export type AuthContextProps = {
     signOut: () => void,
     loggedIn: boolean,
     userLoading: boolean
+    userData: User,
 }
 
 export const AuthContext = createContext<Partial<AuthContextProps>>({})
@@ -28,6 +29,7 @@ export const AuthProvider: FunctionComponent = ({
     const [ user, setUser ] = useState<User>(null)
     const [ userLoading, setUserLoading ] = useState(true)
     const [ loggedIn, setLoggedin ] = useState(false)
+    const [ userData, setUserData ] = useState<User>(null)
 
     const insertProfile = async (user: User | null, payload) => {
         console.log('insertProfile User', user)
@@ -136,6 +138,30 @@ export const AuthProvider: FunctionComponent = ({
             //Router.push(ROUTE_HOME)
         }
 
+        // load user data from database
+        async function getUserData ()  {
+            console.log('getUserData', user.email)
+
+            let { data, error } = await supabaseClient
+                .from('profiles')
+                .select('*')
+                .eq('id', user.id)
+
+            if (error) {
+                if (handleMessage) {
+                    handleMessage({message: error.message, type: 'error'})
+                }
+            }
+
+            if (data) {
+                console.log("User Data detials", data)
+                setUserData(data[0])
+            }
+        }
+
+        getUserData()
+
+
         const { data: authListener } = supabaseClient.auth.onAuthStateChange(
             async (event, session) => {
                 console.log('authListener', event)
@@ -182,7 +208,8 @@ export const AuthProvider: FunctionComponent = ({
             signOut,
             loggedIn,
             loading,
-            userLoading
+            userLoading,
+            userData,
         }}>
             {children}
         </AuthContext.Provider>
