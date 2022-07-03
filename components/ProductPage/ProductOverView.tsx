@@ -345,32 +345,6 @@ export default function ProductOverView({children, className, ...props}) {
                                                 username: userData.username,
                                             }
                                             console.log(datalist)
-                                            console.log(typeof datalist.toString())
-
-
-                                            // data to jsonb
-                                            //let jsonb = JSON.stringify(data)
-                                            //jsonb="["+jsonb+"]"
-                                            //console.log(jsonb)
-                                            const sub = [
-                                                "a",
-                                                "b",
-                                                "c",
-                                                "d",
-                                                "e",
-                                                "f",
-                                            ]
-
-                                            const jsonb = [
-                                                {
-                                                    name: "a",
-                                                    value: "a",
-                                                },
-                                                {
-                                                    name: "b",
-                                                    value: "b",
-                                                }
-                                            ]
 
                                             async function getData() {
                                                 let { data: wishlist, error } = await supabaseClient
@@ -380,8 +354,6 @@ export default function ProductOverView({children, className, ...props}) {
                                                 if (error) {
                                                     console.log(error)
                                                 }
-                                                // console.log("Wishlist mmmmmmm", wishlist)
-                                                // console.log("Wishlist oooooooo", wishlist[0])
                                                 console.log("Wishlist kkkkkkk", wishlist[0].items)
                                                 return wishlist[0].items
                                             }
@@ -389,36 +361,15 @@ export default function ProductOverView({children, className, ...props}) {
                                             async function postData() {
 
                                                 let prevData = await getData()
-                                                //getData()
-
                                                 console.log("Prev Data", prevData)
 
-                                                // const { data, error } = await supabaseClient
-                                                //     .from('wishlist')
-                                                //     .update({itemstr: sub})
-                                                //     .eq('id', users.id)
+                                                prevData.push(datalist)
 
-                                                // const prevData = [
-                                                //     {
-                                                //         name: "a",
-                                                //         value: "a",
-                                                //     },
-                                                //     {
-                                                //         name: "b",
-                                                //         value: "b",
-                                                //     }
-                                                // ]
-                                                let dataC = {name:"slmdlsmsdsl", value: "a"}
-                                                // insert dataC into prevData
-                                                prevData.push(dataC)
-                                                prevData.push(dataC)
-                                                console.log("Presknksdnskssn", prevData)
+                                                console.log("New Array", prevData)
 
                                                 const {data, error} = await supabaseClient
                                                     .from('wishlist')
-                                                    // .insert([{id: users.id, items: jsonb}], {upsert: true})
-                                                    .update({items: prevData})
-                                                    .eq('id', users.id)
+                                                    .insert([{id: users.id, items: prevData}], {upsert: true})
 
                                                 if (error) {
                                                     console.log(error)
