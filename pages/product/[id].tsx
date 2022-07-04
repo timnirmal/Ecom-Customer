@@ -12,6 +12,7 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({userAgent, product, err
     console.log("Products", product[0])
     console.log("Products Error", error)
 
+
     // SKU: "test-123"
     // availablequality: "test"
     // description: "test"
@@ -26,72 +27,74 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({userAgent, product, err
 
     // TODO: Search for product by Name and get the product data
     // In this page id means the product name/title
-    let ProductData =
-        {
-            id: product[0].id,
-            color: product[0].color || "red-500",
-            brandName: product[0].name,
-            productName: product[0].name,
-            productPrice: product[0].price,
-            productDescription: product[0].description,
-            //productImage: "https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-            productImage: "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-            rating: product[0].rating || 3.5,
-            properties: [
-                {
-                    name: "Size",
-                    value: ["SM", "M", "L", "XL"],
-                    display: true
-                },
-                {
-                    name: "Color",
-                    value: ["blue", "red", "white"],
-                    display: true
-                },
-                {
-                    name: "Material",
-                    value: ["Cotton", "Polyester", "Nylon"],
-                    //value: "Cotton",
+    // let ProductData =
+    //     {
+    //         sku: product[0].SKU,
+    //         id: product[0].id,
+    //         color: "red-500",
+    //         //brandName: product[0].brandname,
+    //         productName: product[0].name,
+    //         productPrice: product[0].price || "23",
+    //         productDescription: product[0].description,
+    //         //productImage: "https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+    //         productImage: "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+    //         rating: product[0].rating || 3.5,
+    //         properties: [
+    //             {
+    //                 name: "Size",
+    //                 value: ["SM", "M", "L", "XL"],
+    //                 display: true
+    //             },
+    //             {
+    //                 name: "Color",
+    //                 value: ["blue", "red", "white"],
+    //                 display: true
+    //             },
+    //             {
+    //                 name: "Material",
+    //                 value: ["Cotton", "Polyester", "Nylon"],
+    //                 //value: "Cotton",
+    //
+    //                 display: true
+    //             },
+    //             {
+    //                 name: "Weight",
+    //                 value: "100g",
+    //                 display: false
+    //             },
+    //             {
+    //                 name: "Dimensions",
+    //                 value: "100x100x100",
+    //                 display: false
+    //             }
+    //         ],
+    //         // TODO: Code again with property data like below
+    //         property: {
+    //             sizes: ["SM", "M", "L", "XL"],
+    //             colors: ["blue", "red", "white"],
+    //             colorsAvailability: [true, true, true],
+    //             materials: ["Cotton", "Polyester", "Nylon"],
+    //             weight: "100g",
+    //             dimensions: "100x100x100"
+    //         },
+    //         category: "Category",
+    //         subCategory: "Sub Category",
+    //         tags: ["tag1", "tag2", "tag3"],
+    //         reviews: "100",
+    //         stock: product[0].stock,
+    //         discount: product[0].discount,
+    //         discountPrice: "90",
+    //         orders: "100",
+    //     }
 
-                    display: true
-                },
-                {
-                    name: "Weight",
-                    value: "100g",
-                    display: false
-                },
-                {
-                    name: "Dimensions",
-                    value: "100x100x100",
-                    display: false
-                }
-            ],
-            // TODO: Code again with property data like below
-            property: {
-                sizes: ["SM", "M", "L", "XL"],
-                colors: ["blue", "red", "white"],
-                colorsAvailability: [true, true, true],
-                materials: ["Cotton", "Polyester", "Nylon"],
-                weight: "100g",
-                dimensions: "100x100x100"
-            },
-            category: "Category",
-            subCategory: "Sub Category",
-            tags: ["tag1", "tag2", "tag3"],
-            reviews: "100",
-            stock: product[0].stock,
-            discount: product[0].discount,
-            discountPrice: "90",
-        }
 
-    /*
 let ProductData =
     {
         id: "1",
         color: "red-500",
         brandName: "BRAND NAME",
         productName: "PRODUCT NAME",
-        productPrice: "$100",
+        price: "$100",
         productDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         //productImage: "https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
         productImage: "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
@@ -141,8 +144,9 @@ let ProductData =
         stock: "100",
         discount: "10",
         discountPrice: "90",
+        orders: "50",
     }
-*/
+
 
     return (
         <div>
@@ -160,11 +164,12 @@ let ProductData =
                 })*/}
 
                 <ProductOverView
+                    sku={ProductData.sku}
                     productid={ProductData.id}
                     color={ProductData.color}
                     brandname={ProductData.brandName}
                     productname={ProductData.productName}
-                    productprice={ProductData.productPrice}
+                    price={ProductData.price}
                     productdescription={ProductData.productDescription}
                     productimage={ProductData.productImage}
                     rating={ProductData.rating}
@@ -177,6 +182,7 @@ let ProductData =
                     stock={ProductData.stock}
                     discount={ProductData.discount}
                     discountprice={ProductData.discountPrice}
+                    orders={ProductData.orders}
                 />
 
                 <Carousel playTime={3000}/>

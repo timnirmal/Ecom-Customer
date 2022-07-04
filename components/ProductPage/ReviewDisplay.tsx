@@ -44,7 +44,6 @@ export default function ReviewDisplay({children, className, ...props}) {
             <span className="flex items-center">
                 {fullStars}
                 {emptyStars}
-                <span className="text-gray-600 ml-3">{props.rating} Reviews</span>
             </span>
             {children}
 

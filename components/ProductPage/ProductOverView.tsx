@@ -144,12 +144,18 @@ export default function ProductOverView({children, className, ...props}) {
                             </h1>
 
                             <div className="flex mb-4">
-                                {/* Ratings */}
+                                {/* Ratings && Reviews*/}
                                 <span className="flex items-center">
                                     <ReviewDisplay
                                         rating={props.rating}
                                         color={"text-" + props.color}
                                     />
+                                    <span className="text-gray-600 ml-3 text-center">{props.reviews}
+                                        <div className={"text-gray-600 text-sm "}>Reviews</div>
+                                    </span>
+                                    <span className="text-gray-600 ml-3 text-center">{props.orders}
+                                        <div className={"text-gray-600 text-sm"}>Orders</div>
+                                    </span>
                                 </span>
 
                                 {/* Social Media Share */}
@@ -180,8 +186,36 @@ export default function ProductOverView({children, className, ...props}) {
                                 </span>
                             </div>
 
+                            {/*Price*/}
+                            {props.price ?
+                                <div className="flex items-center mb-4">
+                                    <div className="text-gray-500 text-sm mt-2 mb-2">Price
+                                        {/*If a Discount Exists*/}
+                                        {props.discount ?
+                                            //TODO: Add Variants
+                                            // Stroked gray text with striked price
+                                            <span className="text-gray-900 text-xl font-bold ml-2">${(parseFloat(props.price.substring(1)) - (parseFloat(props.price.substring(1)) * props.discount / 100)).toFixed(2)}
+                                                <span className="text-gray-400 ml-3 text-base align-baseline line-through">{props.price}</span>
+                                                    <span className="bg-red-300 text-red-800 ml-2 text-base align-top text-sm rounded">-{props.discount}%</span>
+                                            </span>
+
+                                            :
+                                            <span className="text-gray-900 text-xl font-bold ml-2">{props.price}</span>
+                                        }
+                                    </div>
+                                </div>
+                                :
+                                <div className="flex items-center mb-4">
+                                    <div className="text-gray-500 text-sm">Price not mentioned</div>
+                                </div>
+                            }
+
+
+                            {/*Description*/}
+                            {/*flex items-center pt-5 border-t-2 border-gray-200 mb-5*/}
                             <p className="leading-relaxed">{props.productdescription}</p>
 
+                            {/*Color and Size*/}
                             <div className="flex mt-6 items-center pb-5">
                                 <div className="flex">
                                     <span className="mr-3">Color</span>
@@ -270,7 +304,6 @@ export default function ProductOverView({children, className, ...props}) {
                             </div>
 
                             {/* Other Properties */}
-
                             <div className="flex  items-center pb-5 border-b-2 border-gray-200 mb-5">
                                 {/*<div className="flex">
                                     <span className="mr-3">Color</span>
@@ -330,24 +363,42 @@ export default function ProductOverView({children, className, ...props}) {
                             {/* Price, Buy Section */}
                             <div className="flex">
                                 {   // Product Price
-                                    props.productPrice &&
+
                                     <span
-                                        className="title-font font-medium text-2xl text-gray-900">{props.productPrice}</span>
+                                        className="">{props.price}</span>
                                 }
 
                                 <button
                                     className={"flex ml-auto text-white bg-" + (props.color) + " border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"}
                                     onClick={() => {
-                                        function addToCart(productid: any, productprice, productname, color, material: string | undefined, productimage, size: string | undefined, userData: any) {
-                                            // TODO: Send data to DB
+
+                                        function addToCart(productid: any, productprice, productname, material: string | undefined, productimage, size: string | undefined, userData: any) {
+
+                                            // empty properties json object
+                                            let properties = {}
+                                            // if color exists, add to properties
+                                            if (color) {
+                                                properties["color"] = color
+                                            }
+                                            // if size exists, add to properties
+                                            if (size) {
+                                                properties["size"] = size
+                                            }
+                                            // if material exists, add to properties
+                                            if (material) {
+                                                properties["material"] = material
+                                            }
+                                            console.log("Properties", properties)
+
                                             const datalist = {
                                                 id: productid,
-                                                username: userData.username,
+                                                properties: properties,
+                                                quantity: 1,
                                             }
                                             console.log(datalist)
 
                                             async function getData() {
-                                                let { data: wishlist, error } = await supabaseClient
+                                                let {data: wishlist, error} = await supabaseClient
                                                     .from('wishlist')
                                                     .select('items')
 
@@ -386,6 +437,9 @@ export default function ProductOverView({children, className, ...props}) {
                                         }
 
                                         addToCart(props.productid, props.productprice, props.productname, props.color, material, props.productimage, size, userData)
+
+
+                                        //addToCart(props.productid, props.color, material, props.productimage, size, userData)
                                     }}
                                 >
                                     Add to Cart
