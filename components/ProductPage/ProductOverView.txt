@@ -5,6 +5,7 @@ import {useAuth} from "../../lib/auth";
 import {supabaseClient} from "../../lib/supabase";
 
 
+
 export default function ProductOverView({children, className, ...props}) {
     const {loading, signIn, signUp, users, signInWithGithub, userData} = useAuth()
 
@@ -13,12 +14,18 @@ export default function ProductOverView({children, className, ...props}) {
     console.log("ProductOverView UserData : ", userData);
 
 
-    const [color, setColor] = React.useState(props.properties.color === null ? props.properties.color : "");
-    const [size, setSize] = React.useState(props.properties.size ? props.properties.size : "");
-
-    const [material, setMaterial] = props.properties.material ?
-        (!Array.isArray(props.properties.material) ? React.useState(props.properties.material)
-        : React.useState(props.properties.material[0])) : React.useState("");
+    //console.log(props.properties);
+    //console.log(props.properties[0].name);
+    //console.log(props.properties[0].value);
+    //console.log(props.properties[0].value[0]);
+    //console.log(props.brandName)
+    // find object with name "name"
+    // find object with name "value"
+    //console.log()
+    const [color, setColor] = React.useState(props.properties[1].value[0]);
+    const [size, setSize] = React.useState(props.properties[0].value[0]);
+    const [material, setMaterial] = !Array.isArray(props.properties[2].value) ? React.useState(props.properties[2].value)
+        : React.useState(props.properties[2].value[0]);
 
     function setSizeRadio(e) {
         setSize(e.target.value);
@@ -34,7 +41,6 @@ export default function ProductOverView({children, className, ...props}) {
     console.log(size);
     console.log(material);
 
-    // Colors
     {
         const grayColor = "gray-700 "
         const redColor = "red-700 "
@@ -72,18 +78,14 @@ export default function ProductOverView({children, className, ...props}) {
             <section className="text-gray-700 body-font overflow-hidden bg-white">
                 <div className="container px-5 py-24 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
-
-                        {/* Product Image */}
                         <img alt="ecommerce"
                              className="lg:w-1/2 lg:h-140 object-top md:hover:h-full w-full object-cover object-center rounded border border-gray-200"
                             //src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"]
                              src={props.productimage}
                         />
-
-                        {/* Product Details */}
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 
-                            <h2 className="text-sm title-font text-gray-500 tracking-widest">{props.brandname}</h2>
+                            <h2 className="text-sm title-font text-gray-500 tracking-widest">{props.brandName}</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                                 {props.productname}
                             </h1>
@@ -160,10 +162,26 @@ export default function ProductOverView({children, className, ...props}) {
                             <div className="flex mt-6 items-center pb-5">
                                 <div className="flex">
                                     <span className="mr-3">Color</span>
-
-                                    {
-                                        props.properties.color &&
-                                        <span>{props.properties.size.price.map((colorName, index) => {
+                                    {/*   // Product Color Options
+                                        props.properties[1].name === "Color" &&
+                                        <span >{props.properties[1].value.map((colorName, index) => {
+                                            return (
+                                                <button
+                                                    //className={"border-2 border-gray-300 ml-1 rounded-full w-6 h-6 "+ ("bg-"+colorName+"-700") + " focus:outline outline-"+(colorName)+"-700" }/>
+                                                    className={"border-2 border-gray-300 ml-1 rounded-full w-6 h-6 "+ ("bg-"+colorName+"-700") + " focus:outline "+("outline-"+colorName+"-700") }
+                                                    onClick={() => {
+                                                        setColor(colorName)
+                                                        console.log(colorName)
+                                                    }}
+                                                    key={index}
+                                                />
+                                                // TODO: Use state get color from button click and set it as the focused color
+                                            )
+                                        })}</span>
+                                    */}
+                                    {   // Product Color Options
+                                        props.properties[1].name === "Color" &&
+                                        <span>{props.properties[1].value.map((colorName, index) => {
                                             return (
                                                 <input
                                                     className={"form-check-input appearance-none rounded-full h-6 w-6 border border-gray-300 " +
@@ -202,8 +220,8 @@ export default function ProductOverView({children, className, ...props}) {
                                             value={size} onChange={setSizeRadio}
                                             className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
                                             {
-                                                props.properties.size &&
-                                                props.properties.size.price.map((sizeItem, index) => {
+                                                props.properties[0].name === "Size" &&
+                                                props.properties[0].value.map((sizeItem, index) => {
                                                     return (
                                                         <option
                                                             className="text-gray-700"
@@ -230,13 +248,49 @@ export default function ProductOverView({children, className, ...props}) {
 
                             {/* Other Properties */}
                             <div className="flex items-center pb-5 border-b-2 border-gray-200 mb-5">
+                                {/*<div className="flex">
+                                    <span className="mr-3">Color</span>
+
+                                    {   // Product Color Options
+                                        props.properties[1].name === "Color" &&
+                                        <span>{props.properties[1].value.map((colorName, index) => {
+                                            return (
+                                                <input
+                                                    className={"form-check-input appearance-none rounded-full h-6 w-6 border border-gray-300 " +
+                                                        ("bg-" + colorName + "-700") + " focus:outline " + ("outline-" + colorName + "-700") +
+                                                        //"bg-red-700 focus:outline outline-red-700" +
+                                                        ("checked:bg-" + colorName + "-600 checked:border-" + colorName + "-600") +
+                                                        //"checked:bg-red-600 checked:border-red-600 " +
+                                                        "focus:outline-none " +
+                                                        "transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"}
+                                                    //form-radio h-6 w-6 checked:bg-green-500 text-green-500 p-3 my-4
+                                                    type="radio"
+                                                    name="colorRadio"
+                                                    id="colorRadio"
+                                                    onClick={() => {
+                                                        setColor(colorName)
+                                                        console.log(colorName)
+                                                    }}
+                                                    value={colorName}
+                                                    key={index}
+                                                    checked={colorName === color}
+                                                />
+                                                // TODO: Use state get color from button click and set it as the focused color
+
+                                                // TODO: Fix colors
+                                            )
+                                        })}</span>
+                                        //https://stackoverflow.com/questions/70845642/cant-change-radio-button-background-color-on-tailwind-v3/70845747
+                                    }
+
+                                </div>*/}
 
                                 <div className="flex ml-6 items-center">
                                     <span className="mr-3">Size</span>
                                     <div className="relative">
                                         {
-                                            props.properties.material &&
-                                            ifArrayDo(props.properties.material, material, setMaterial, setMaterialType)
+                                            props.properties[2].name === "Material" &&
+                                            ifArrayDo(props.properties[2].value, material, setMaterial, setMaterialType)
 
                                         }
                                         {/*   // Product Price
@@ -438,4 +492,48 @@ function ifArrayDo(arr: any, material: any, setMaterial: any, setMaterialType: a
             <span> {arr} </span>
         );
     }
+}
+
+// ProductOverView.getInitialProps = async (context: any) => {
+//     const { productId } = context.query;
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     console.log("ID",productId)
+//     //const product = await getProduct(productId);
+//     return {
+//         productId: productId,
+//         theproductname: "osjdojdsodjds",
+//         // productName: product.name,
+//         // productPrice: product.price,
+//         // productImage: product.image,
+//         // properties: product.properties,
+//         // color: product.color,
+//         // material: product.material,
+//     }
+// }
+
+
+{/*
+Half star
+
+<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400"
+                                         viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M 9.049,2.927 C 9.1985626,2.4678429 9.5974148,2.2375949 9.9968701,2.2362559 l -5.9e-6,11.8199721 C 9.7915851,14.056767 9.5864369,14.120358 9.412,14.247 l -2.8,2.034 C 5.828,16.851 4.774,16.084 5.073,15.163 l 1.07,-3.292 C 6.276704,11.45883 6.1297413,11.007444 5.779,10.753 L 2.98,8.72 C 2.197,8.15 2.6,6.91 3.568,6.91 H 7.029 C 7.4619424,6.9101141 7.8457879,6.6316142 7.98,6.22 L 9.05,2.928 Z"/>
+                                    </svg>
+
+
+*/
+}
+
+{/*
+<span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+    {product}
+</span>
+*/
 }

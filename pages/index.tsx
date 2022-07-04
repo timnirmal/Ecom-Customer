@@ -94,7 +94,7 @@ const CategoryData = [
 const OtherData = [
     {
         id: 3,
-        name: 'Noteworthy technology acquisitions 2021',
+        name: 'Girl Blue Tshirt',
         src: '/Products/WhiteClock.png',
         description: 'Card description',
         actionbutton: false,
