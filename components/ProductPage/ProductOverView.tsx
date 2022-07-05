@@ -27,14 +27,18 @@ export default function ProductOverView({children, className, ...props}) {
     function setSizeRadio(e) {
         setSize(e.target.value);
         console.log("Set Size Radio Key", e.target.selectedIndex);
-        setPrice(parseFloat(props.properties.size.price[e.target.selectedIndex].substring(1)));
+        if (props.properties && props.properties.size && props.properties.size.price) {
+            setPrice(parseFloat(props.properties.size.price[e.target.selectedIndex].substring(1)));
+        }
         console.log("Price ", price);
     }
 
     function setMaterialType(e) {
         setMaterial(e.target.value);
         console.log(e.target.value);
-        setPrice(parseFloat(props.properties.material.price[e.target.selectedIndex].substring(1)));
+        if (props.properties && props.properties.material && props.properties.material.price) {
+            setPrice(parseFloat(props.properties.material.price[e.target.selectedIndex].substring(1)));
+        }
     }
 
     console.log(color);
@@ -177,9 +181,9 @@ export default function ProductOverView({children, className, ...props}) {
                             <div className="flex mt-6 items-center pb-5">
                                 {/*Color*/}
                                 <div className="flex">
-                                    {props.properties.color && <span className="mr-3">Color</span>}
+                                    {props.properties && props.properties.color && props.properties.color.value && <span className="mr-3">Color</span>}
                                     {
-                                        props.properties.color.value ?
+                                        props.properties && props.properties.color && props.properties.color.value ?
                                             <span>{props.properties.color.value.map((colorName, index) => {
                                                 return (
                                                     <input
@@ -217,9 +221,9 @@ export default function ProductOverView({children, className, ...props}) {
 
                                 {/*Size*/}
                                 <div className="flex ml-6 items-center">
-                                    {props.properties.size && <span className="mr-3">Size</span>}
+                                    {props.properties && props.properties.size && props.properties.size.value && <span className="mr-3">Size</span>}
                                     <div className="relative">
-                                        {props.properties.size &&
+                                        {props.properties && props.properties.size && props.properties.size.value &&
                                             <select
                                                 value={size} onChange={setSizeRadio}
                                                 className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
@@ -238,7 +242,7 @@ export default function ProductOverView({children, className, ...props}) {
                                                 }
                                             </select>
                                         }
-                                        {props.properties.size &&
+                                        {props.properties && props.properties.size && props.properties.size.value &&
                                             <span
                                                 className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                                             <svg fill="none" stroke="currentColor" strokeLinecap="round"
@@ -259,9 +263,8 @@ export default function ProductOverView({children, className, ...props}) {
                                     <span className="mr-3">Material</span>
                                     <div className="relative">
                                         {
-                                            props.properties.material.value &&
+                                            props.properties && props.properties.material && props.properties.material.value &&
                                             ifArrayDo(props.properties.material.value, material, setMaterial, setMaterialType)
-
                                         }
                                         {/*   // Product Price
                                             props.properties[2].name === "Material" &&
@@ -490,16 +493,15 @@ function addToCart(productid: number, price: number, color: string | undefined, 
         let prevData = [];
         try {
             prevData = await getData()
-        }
-        catch (errors) {
-            console.log("Err",errors)
-            console.log("Err",errors)
-            console.log("Err",errors)
-            console.log("Err",errors)
-            console.log("Err",errors)
-            console.log("Err",errors)
-            console.log("Err",errors)
-            console.log("Err",errors)
+        } catch (errors) {
+            console.log("Err", errors)
+            console.log("Err", errors)
+            console.log("Err", errors)
+            console.log("Err", errors)
+            console.log("Err", errors)
+            console.log("Err", errors)
+            console.log("Err", errors)
+            console.log("Err", errors)
         }
 
 
