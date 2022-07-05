@@ -12,27 +12,39 @@ export default function ProductOverView({children, className, ...props}) {
     console.log("ProductOverView User : ", users);
     console.log("ProductOverView UserData : ", userData);
 
+    const [color, setColor] = React.useState(props.properties && props.properties.color && props.properties.color.value ? props.properties.color.value[0] : "");
+    const [size, setSize] = React.useState(props.properties && props.properties.size && props.properties.size.value ? props.properties.size.value[0] : "");
 
-    const [color, setColor] = React.useState(props.properties.color === null ? props.properties.color : "");
-    const [size, setSize] = React.useState(props.properties.size ? props.properties.size : "");
+    const [material, setMaterial] = props.properties && props.properties.material && props.properties.material.value ?
+        (!Array.isArray(props.properties.material.value) ? React.useState(props.properties.material.value)
+            : React.useState(props.properties.material.value[0])) : React.useState("");
 
-    const [material, setMaterial] = props.properties.material ?
-        (!Array.isArray(props.properties.material) ? React.useState(props.properties.material)
-        : React.useState(props.properties.material[0])) : React.useState("");
+    const [priceWithoutDiscount, setPriceWithoutDiscount] = React.useState(parseFloat(props.price.substring(1)));
+    const [price, setPrice] = React.useState(Number((priceWithoutDiscount - (priceWithoutDiscount * props.discount / 100)).toFixed(2)));
+
+    const [quantity, setQuantity] = React.useState(1);
 
     function setSizeRadio(e) {
         setSize(e.target.value);
-        console.log(e.target.value);
+        console.log("Set Size Radio Key", e.target.selectedIndex);
+        setPrice(parseFloat(props.properties.size.price[e.target.selectedIndex].substring(1)));
+        console.log("Price ", price);
     }
 
     function setMaterialType(e) {
         setMaterial(e.target.value);
         console.log(e.target.value);
+        setPrice(parseFloat(props.properties.material.price[e.target.selectedIndex].substring(1)));
     }
 
     console.log(color);
     console.log(size);
     console.log(material);
+    console.log("Price ", price);
+    console.log("Price ", price);
+    console.log("Price ", price);
+    console.log("Price ", price);
+    console.log("Price ", price);
 
     // Colors
     {
@@ -83,11 +95,13 @@ export default function ProductOverView({children, className, ...props}) {
                         {/* Product Details */}
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 
+                            {/* Brand Name and Product Name */}
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">{props.brandname}</h2>
-                            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                            <h1 className="text-gray-900 text-3xl title-font font-medium mb-3">
                                 {props.productname}
                             </h1>
 
+                            {/*Rating, Review, Orders and Social*/}
                             <div className="flex mb-4">
                                 {/* Ratings && Reviews*/}
                                 <span className="flex items-center">
@@ -139,13 +153,16 @@ export default function ProductOverView({children, className, ...props}) {
                                         {props.discount ?
                                             //TODO: Add Variants
                                             // Stroked gray text with striked price
-                                            <span className="text-gray-900 text-xl font-bold ml-2">${(parseFloat(props.price.substring(1)) - (parseFloat(props.price.substring(1)) * props.discount / 100)).toFixed(2)}
-                                                <span className="text-gray-400 ml-3 text-base align-baseline line-through">{props.price}</span>
-                                                    <span className="bg-red-300 text-red-800 ml-2 text-base align-top text-sm rounded">-{props.discount}%</span>
+                                            <span
+                                                className="text-gray-900 text-xl font-bold ml-2">${price}
+                                                <span
+                                                    className="text-gray-400 ml-3 text-base align-baseline line-through">${priceWithoutDiscount}</span>
+                                                    <span
+                                                        className="bg-red-300 text-red-800 ml-2 text-base align-top text-sm rounded">-{props.discount}%</span>
                                             </span>
 
                                             :
-                                            <span className="text-gray-900 text-xl font-bold ml-2">{props.price}</span>
+                                            <span className="text-gray-900 text-xl font-bold ml-2">${price}</span>
                                         }
                                     </div>
                                 </div>
@@ -158,72 +175,79 @@ export default function ProductOverView({children, className, ...props}) {
 
                             {/*Color and Size*/}
                             <div className="flex mt-6 items-center pb-5">
+                                {/*Color*/}
                                 <div className="flex">
-                                    <span className="mr-3">Color</span>
-
+                                    {props.properties.color && <span className="mr-3">Color</span>}
                                     {
-                                        props.properties.color &&
-                                        <span>{props.properties.size.price.map((colorName, index) => {
-                                            return (
-                                                <input
-                                                    className={"form-check-input appearance-none rounded-full h-6 w-6 border border-gray-300 " +
-                                                        ("bg-" + colorName + "-700") + " focus:outline " + ("outline-" + colorName + "-700") +
-                                                        //"bg-red-700 focus:outline outline-red-700" +
-                                                        ("checked:bg-" + colorName + "-600 checked:border-" + colorName + "-600") +
-                                                        //"checked:bg-red-600 checked:border-red-600 " +
-                                                        "focus:outline-none " +
-                                                        "transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"}
-                                                    //form-radio h-6 w-6 checked:bg-green-500 text-green-500 p-3 my-4
-                                                    type="radio"
-                                                    name="colorRadio"
-                                                    id="colorRadio"
-                                                    onClick={() => {
-                                                        setColor(colorName)
-                                                        console.log(colorName)
-                                                    }}
-                                                    value={colorName}
-                                                    key={index}
-                                                    checked={colorName === color}
-                                                />
-                                                // TODO: Use state get color from button click and set it as the focused color
+                                        props.properties.color.value ?
+                                            <span>{props.properties.color.value.map((colorName, index) => {
+                                                return (
+                                                    <input
+                                                        className={"form-check-input appearance-none rounded-full h-6 w-6 border border-gray-300 " +
+                                                            ("bg-" + colorName + "-700") + " focus:outline " + ("outline-" + colorName + "-700") +
+                                                            //"bg-red-700 focus:outline outline-red-700" +
+                                                            ("checked:bg-" + colorName + "-600 checked:border-" + colorName + "-600") +
+                                                            //"checked:bg-red-600 checked:border-red-600 " +
+                                                            "focus:outline-none " +
+                                                            "transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"}
+                                                        //form-radio h-6 w-6 checked:bg-green-500 text-green-500 p-3 my-4
+                                                        type="radio"
+                                                        name="colorRadio"
+                                                        id="colorRadio"
+                                                        onClick={() => {
+                                                            setColor(colorName)
+                                                            console.log(colorName)
+                                                        }}
+                                                        value={colorName}
+                                                        key={index}
+                                                        checked={colorName === color}
+                                                    />
+                                                    // TODO: Use state get color from button click and set it as the focused color
 
-                                                // TODO: Fix colors
-                                            )
-                                        })}</span>
+                                                    // TODO: Fix colors
+                                                )
+                                            })}</span>
+                                            :
+                                            props.properties.color ? null : null
+
                                         //https://stackoverflow.com/questions/70845642/cant-change-radio-button-background-color-on-tailwind-v3/70845747
                                     }
 
                                 </div>
 
+                                {/*Size*/}
                                 <div className="flex ml-6 items-center">
-                                    <span className="mr-3">Size</span>
+                                    {props.properties.size && <span className="mr-3">Size</span>}
                                     <div className="relative">
-                                        <select
-                                            value={size} onChange={setSizeRadio}
-                                            className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
-                                            {
-                                                props.properties.size &&
-                                                props.properties.size.price.map((sizeItem, index) => {
-                                                    return (
-                                                        <option
-                                                            className="text-gray-700"
-                                                            value={sizeItem}
-                                                            key={index}
-                                                        >
-                                                            {sizeItem}
-                                                        </option>
-                                                    )
-                                                })
-                                            }
-                                        </select>
-                                        <span
-                                            className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                                        {props.properties.size &&
+                                            <select
+                                                value={size} onChange={setSizeRadio}
+                                                className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
+                                                {
+                                                    props.properties.size.value.map((sizeItem, index) => {
+                                                        return (
+                                                            <option
+                                                                className="text-gray-700"
+                                                                value={sizeItem}
+                                                                key={index}
+                                                            >
+                                                                {sizeItem}
+                                                            </option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
+                                        }
+                                        {props.properties.size &&
+                                            <span
+                                                className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                                             <svg fill="none" stroke="currentColor" strokeLinecap="round"
                                                  strokeLinejoin="round" strokeWidth="2"
                                                  className="w-4 h-4" viewBox="0 0 24 24">
                                                 <path d="M6 9l6 6 6-6"/>
                                             </svg>
                                         </span>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -231,12 +255,12 @@ export default function ProductOverView({children, className, ...props}) {
                             {/* Other Properties */}
                             <div className="flex items-center pb-5 border-b-2 border-gray-200 mb-5">
 
-                                <div className="flex ml-6 items-center">
-                                    <span className="mr-3">Size</span>
+                                <div className="flex items-center">
+                                    <span className="mr-3">Material</span>
                                     <div className="relative">
                                         {
-                                            props.properties.material &&
-                                            ifArrayDo(props.properties.material, material, setMaterial, setMaterialType)
+                                            props.properties.material.value &&
+                                            ifArrayDo(props.properties.material.value, material, setMaterial, setMaterialType)
 
                                         }
                                         {/*   // Product Price
@@ -252,86 +276,52 @@ export default function ProductOverView({children, className, ...props}) {
                             {/*flex items-center pt-5 border-t-2 border-gray-200 mb-5*/}
                             <p className="leading-relaxed pb-5 border-b-2 border-gray-200 mb-5">{props.productdescription}</p>
 
+                            <div className="flex items-center mb-5">
+                                <span className="mr-3">Quantity</span>
+                                {/*Text box */}
+                                <div className="relative mr-4">
+                                    <input
+                                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
+                                        type="number"
+                                        value={quantity}
+                                        onChange={(e) => {
+                                            setQuantity(e.target.value)
+                                        }
+                                        }
+                                        min="1"
+                                        max={props.stock}
+                                        step="1"
+                                    />
+
+                                </div>
+                                {/*Show red color message "Stock is reached"*/}
+                                {parseInt(props.stock) === parseInt(quantity) ?
+                                    <span className="text-red-500 text-sm">
+                                            {console.log(parseInt(props.stock))}
+                                        {console.log(parseInt(quantity))}
+                                        <span>Stock is reached</span>
+                                    </span>
+                                    :
+                                    <span className=" text-sm">
+                                    <span>{props.stock} available</span>
+                                </span>
+                                }
+                            </div>
+
                             {/* Price, Buy Section */}
                             <div className="flex">
-                                {   // Product Price
-
-                                    <span
-                                        className="">{props.price}</span>
-                                }
 
                                 <button
                                     className={"flex ml-auto text-white bg-" + (props.color) + " border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"}
                                     onClick={() => {
-
-                                        function addToCart(productid: any, productprice, productname, material: string | undefined, productimage, size: string | undefined, userData: any) {
-
-                                            // empty properties json object
-                                            let properties = {}
-                                            // if color exists, add to properties
-                                            if (color) {
-                                                properties["color"] = color
-                                            }
-                                            // if size exists, add to properties
-                                            if (size) {
-                                                properties["size"] = size
-                                            }
-                                            // if material exists, add to properties
-                                            if (material) {
-                                                properties["material"] = material
-                                            }
-                                            console.log("Properties", properties)
-
-                                            const datalist = {
-                                                id: productid,
-                                                properties: properties,
-                                                quantity: 1,
-                                            }
-                                            console.log(datalist)
-
-                                            async function getData() {
-                                                let {data: wishlist, error} = await supabaseClient
-                                                    .from('wishlist')
-                                                    .select('items')
-
-                                                if (error) {
-                                                    console.log(error)
-                                                }
-                                                console.log("Wishlist kkkkkkk", wishlist[0].items)
-                                                return wishlist[0].items
-                                            }
-
-                                            async function postData() {
-
-                                                let prevData = await getData()
-                                                console.log("Prev Data", prevData)
-
-                                                prevData.push(datalist)
-
-                                                console.log("New Array", prevData)
-
-                                                const {data, error} = await supabaseClient
-                                                    .from('wishlist')
-                                                    .insert([{id: users.id, items: prevData}], {upsert: true})
-
-                                                if (error) {
-                                                    console.log(error)
-                                                } else {
-                                                    console.log(data)
-                                                }
-                                                console.log("Data added", data)
-                                            }
-
-                                            postData()
-
-                                            // upsert data into the database
-
-                                        }
-
-                                        addToCart(props.productid, props.productprice, props.productname, props.color, material, props.productimage, size, userData)
-
-
-                                        //addToCart(props.productid, props.color, material, props.productimage, size, userData)
+                                        console.log("ID", parseInt(props.id))
+                                        console.log("Price", price)
+                                        console.log("Color", color)
+                                        console.log("Size", size)
+                                        console.log("Material", material)
+                                        console.log("Quantity", quantity)
+                                        console.log("Users", users)
+                                        addToCart(parseInt(props.id), Number(price), color, size, material, quantity, users)
                                     }}
                                 >
                                     Add to Cart
@@ -381,7 +371,6 @@ ProductOverView.defaultProps = {
     productname: "",
     productprice: "",
 }
-
 
 
 /**
@@ -438,4 +427,102 @@ function ifArrayDo(arr: any, material: any, setMaterial: any, setMaterialType: a
             <span> {arr} </span>
         );
     }
+}
+
+/**
+ *
+ * @param productid
+ * @param price
+ * @param color
+ * @param size
+ * @param material
+ * @param quantity
+ * @param users
+ */
+function addToCart(productid: number, price: number, color: string | undefined, size: string | undefined, material: string | undefined, quantity: number, users: any) {
+
+    // Prepare properties json
+
+    // empty properties json object
+    let properties = {}
+    // if color exists, add to properties
+    if (color) {
+        properties["color"] = color
+    }
+    // if size exists, add to properties
+    if (size) {
+        properties["size"] = size
+    }
+    // if material exists, add to properties
+    if (material) {
+        properties["material"] = material
+    }
+    console.log("Properties", properties)
+
+    const datalist = {
+        id: productid,
+        properties: properties,
+        quantity: quantity,
+        created_at: new Date().toISOString(),
+    }
+    console.log("DataList ", datalist)
+    console.log("DataList ", datalist)
+    console.log("DataList ", datalist)
+
+    async function getData() {
+        let {data: cart, errors} = await supabaseClient
+            .from('cart')
+            .select('items')
+
+        if (errors) {
+            console.log(errors)
+            if (toString(errors).includes("Cannot read properties of undefined (reading 'items')")) {
+                console.log("Unauthorized")
+                return
+            }
+        }
+        console.log("Wishlist kkkkkkk", cart[0].items)
+        return cart[0].items
+    }
+
+    async function postData() {
+
+        let prevData = [];
+        try {
+            prevData = await getData()
+        }
+        catch (errors) {
+            console.log("Err",errors)
+            console.log("Err",errors)
+            console.log("Err",errors)
+            console.log("Err",errors)
+            console.log("Err",errors)
+            console.log("Err",errors)
+            console.log("Err",errors)
+            console.log("Err",errors)
+        }
+
+
+        console.log("Prev Data", prevData)
+
+        prevData.push(datalist)
+
+        console.log("New Array", prevData)
+
+        const {data, error} = await supabaseClient
+            .from('cart')
+            .insert([{id: users.id, items: prevData}], {upsert: true})
+
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(data)
+        }
+        console.log("Data added", data)
+    }
+
+    postData()
+
+    return
+
 }
