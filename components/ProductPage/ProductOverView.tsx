@@ -47,10 +47,7 @@ export default function ProductOverView({children, className, ...props}) {
     console.log(size);
     console.log(material);
     console.log("Price ", price);
-    console.log("Price ", price);
-    console.log("Price ", price);
-    console.log("Price ", price);
-    console.log("Price ", price);
+
 
     // Colors
     {
@@ -302,7 +299,7 @@ export default function ProductOverView({children, className, ...props}) {
                                 {/*Show red color message "Stock is reached"*/}
                                 {parseInt(props.stock) === parseInt(quantity) ?
                                     <span className="text-red-500 text-sm">
-                                            {console.log(parseInt(props.stock))}
+                                        {console.log(parseInt(props.stock))}
                                         {console.log(parseInt(quantity))}
                                         <span>Stock is reached</span>
                                     </span>
@@ -356,14 +353,6 @@ export default function ProductOverView({children, className, ...props}) {
                                         console.log("Users", users)
                                         addToLikedProducts(parseInt(props.id), users)
                                         setLikedProductStatus(!likedProductStatus)
-                                        console.log("Liked Product Status", likedProductStatus)
-                                        console.log("Liked Product Status", likedProductStatus)
-                                        console.log("Liked Product Status", likedProductStatus)
-                                        console.log("Liked Product Status", likedProductStatus)
-                                        console.log("Liked Product Status", likedProductStatus)
-                                        console.log("Liked Product Status", likedProductStatus)
-                                        console.log("Liked Product Status", likedProductStatus)
-                                        console.log("Liked Product Status", likedProductStatus)
                                     }
                                     }
                                 >
@@ -493,8 +482,6 @@ function addToCart(productid: number, price: number, color: string | undefined, 
         created_at: new Date().toISOString(),
     }
     console.log("DataList ", datalist)
-    console.log("DataList ", datalist)
-    console.log("DataList ", datalist)
 
     async function getData() {
         let {data: cart, errors} = await supabaseClient
@@ -519,15 +506,7 @@ function addToCart(productid: number, price: number, color: string | undefined, 
             prevData = await getData()
         } catch (errors) {
             console.log("Err", errors)
-            console.log("Err", errors)
-            console.log("Err", errors)
-            console.log("Err", errors)
-            console.log("Err", errors)
-            console.log("Err", errors)
-            console.log("Err", errors)
-            console.log("Err", errors)
         }
-
 
         console.log("Prev Data", prevData)
 
@@ -655,11 +634,6 @@ function addToLikedProducts(productid: number, users: any) {
             }
         }
         console.log("Wishlist kkkkkkk", likedproduct[0].productids)
-        console.log("Wishlist kkkkkkk", likedproduct[0])
-        console.log("Wishlist kkkkkkk", likedproduct)
-        console.log("Wishlist kkkkkkk", likedproduct)
-        console.log("Wishlist kkkkkkk", likedproduct)
-        console.log("Wishlist kkkkkkk", likedproduct)
         return likedproduct[0].productids
     }
 

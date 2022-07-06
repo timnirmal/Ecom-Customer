@@ -19,38 +19,7 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
     console.log("Products", product)
     console.log("Products Error", error)
     console.log("Products WishlistStatus", wishlistStatus)
-    console.log("Products WishlistStatus", wishlistStatus)
-    console.log("Products WishlistStatus", wishlistStatus)
-    console.log("Products WishlistStatus", wishlistStatus)
-    console.log("Products WishlistStatus", wishlistStatus)
-    console.log("Products WishlistStatus", wishlistStatus)
-    console.log("Products WishlistStatus", wishlistStatus)
-    console.log("Products WishlistStatus", wishlistStatus)
-    console.log("Products WishlistStatus", wishlistStatus)
     console.log("LikedProductsStatus", likedProductsStatus)
-    // console.log("Products WishlistStatus", wishlistStatus)
-    // console.log("Products WishlistStatus", wishlistStatus)
-    // console.log("Products WishlistStatus", wishlistStatus)
-    // // iterate over wishlistStatus and find it any item.id === product.id
-    // const wishlistStatusItem = wishlistStatus.find(item => {
-    //     console.log("item.id", item.id)
-    //     console.log("product.id", Number(userAgent))
-    //     return item.id === Number(userAgent);
-    // })
-    // console.log("WishlistStatusItem", wishlistStatusItem)
-
-
-    // SKU: "test-123"
-    // availablequality: "test"
-    // description: "test"
-    // discount: 12.124
-    // id: 3
-    // imgurl: "test"
-    // joinedat: "2022-06-24T16:17:49.790049+00:00"
-    // name: "test - 3"
-    // price: "$12.12"
-    // stock: 2
-
 
     //TODO: Search for product by Name and get the product data
     //In this page id means the product name/title
@@ -67,15 +36,14 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
             productImage: "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
             rating: product[0].rating || 3.5,
             properties: product[0].properties,
-            // TODO: Code again with property data like below
-            property: {
-                sizes: ["SM", "M", "L", "XL"],
-                colors: ["blue", "red", "white"],
-                colorsAvailability: [true, true, true],
-                materials: ["Cotton", "Polyester", "Nylon"],
-                weight: "100g",
-                dimensions: "100x100x100"
-            },
+            // property: {
+            //     sizes: ["SM", "M", "L", "XL"],
+            //     colors: ["blue", "red", "white"],
+            //     colorsAvailability: [true, true, true],
+            //     materials: ["Cotton", "Polyester", "Nylon"],
+            //     weight: "100g",
+            //     dimensions: "100x100x100"
+            // },
             category: "Category",
             subCategory: "Sub Category",
             tags: ["tag1", "tag2", "tag3"],
@@ -155,13 +123,6 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
             {/*</Head>*/}
 
             <Layout useBackdrop={true} usePadding={false}>
-
-                {/*Map ProductOverView with ProductData*/}
-                {/*ProductData.map((product, index) => {
-                    return (
-                        <ProductOverView key={index} product={product} />
-                    )
-                })*/}
 
                 <ProductOverView
                     sku={ProductData.sku}
