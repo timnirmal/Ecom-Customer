@@ -24,6 +24,7 @@ export default function ProductOverView({children, className, ...props}) {
 
     const [quantity, setQuantity] = React.useState(1);
     const [wishlistStatus, setWishlistStatus] = React.useState(props.wishliststatus);
+    const [likedProductStatus, setLikedProductStatus] = React.useState(props.likedproductstatus);
 
     function setSizeRadio(e) {
         setSize(e.target.value);
@@ -349,11 +350,20 @@ export default function ProductOverView({children, className, ...props}) {
                                     </svg>
                                 </button>
 
-                                <button className={"rounded-full w-10 h-10 bg-gray-400 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4 hover:bg-blue-600"  + (wishlistStatus ? " bg-blue-500" : " bg-gray-400")}
+                                <button className={"rounded-full w-10 h-10 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4 hover:bg-blue-600"  + (likedProductStatus ? " bg-blue-500" : " bg-gray-400")}
                                     onClick={() => {
                                         console.log("ID", parseInt(props.id))
                                         console.log("Users", users)
                                         addToLikedProducts(parseInt(props.id), users)
+                                        setLikedProductStatus(!likedProductStatus)
+                                        console.log("Liked Product Status", likedProductStatus)
+                                        console.log("Liked Product Status", likedProductStatus)
+                                        console.log("Liked Product Status", likedProductStatus)
+                                        console.log("Liked Product Status", likedProductStatus)
+                                        console.log("Liked Product Status", likedProductStatus)
+                                        console.log("Liked Product Status", likedProductStatus)
+                                        console.log("Liked Product Status", likedProductStatus)
+                                        console.log("Liked Product Status", likedProductStatus)
                                     }
                                     }
                                 >

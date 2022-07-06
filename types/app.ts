@@ -14,6 +14,7 @@ export type NextAppProductIDPageProps = {
     product?: object,
     error?: string,
     wishlistStatus?: boolean,
+    likedProductsStatus?: boolean,
 }
 
 export type NextAppPageUserProps = {

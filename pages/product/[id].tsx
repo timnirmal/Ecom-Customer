@@ -11,6 +11,7 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
                                                             product,
                                                             error,
                                                             wishlistStatus,
+                                                            likedProductsStatus,
                                                             children,
                                                             ...props
                                                         }) => {
@@ -26,6 +27,7 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
     console.log("Products WishlistStatus", wishlistStatus)
     console.log("Products WishlistStatus", wishlistStatus)
     console.log("Products WishlistStatus", wishlistStatus)
+    console.log("LikedProductsStatus", likedProductsStatus)
     // console.log("Products WishlistStatus", wishlistStatus)
     // console.log("Products WishlistStatus", wishlistStatus)
     // console.log("Products WishlistStatus", wishlistStatus)
@@ -182,6 +184,7 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
                     discountprice={ProductData.discountPrice}
                     orders={ProductData.orders}
                     wishliststatus={wishlistStatus}
+                    likedproductstatus={likedProductsStatus}
                 />
 
                 <Carousel playTime={3000}/>
@@ -268,14 +271,48 @@ ProductPage.getInitialProps = async ({query}) => {
     /**
      * Getting LikedProducts Status
      */
+    async function getDataLiked() {
+        console.log("kkkkkkkkkkkkkkkkkkk")
 
+        let { data: likedproduct, errors } = await supabaseClient
+            .from('likedproduct')
+            .select('productids')
+            .eq('id', users.id)
+        // .contains('productids', `(${productidArray}]` )
 
+        if (errors) {
+            console.log(errors)
+            if (toString(errors).includes("Cannot read properties of undefined (reading 'items')")) {
+                console.log("Unauthorized")
+                return
+            }
+        }
+        console.log("Wishlist kkkkkkk", likedproduct[0].productids)
+        console.log("Wishlist kkkkkkk", likedproduct[0])
+        console.log("Wishlist kkkkkkk", likedproduct)
+        console.log("Wishlist kkkkkkk", likedproduct)
+        console.log("Wishlist kkkkkkk", likedproduct)
+        console.log("Wishlist kkkkkkk", likedproduct)
+        return likedproduct[0].productids
+    }
+
+    try {
+        prevData = await getData()
+    } catch (errors) {
+        console.log("Err", errors)
+    }
+
+    console.log("Prev Data", prevData)
+
+    // if productid already exists, then set wishlist status to true
+    const LikedStatus = !!prevData.find(item => item === Number(id));
 
 
     return {
         userAgent: id,
         product: data,
         error: error,
-        wishlistStatus: wishlistStatus
+        wishlistStatus: wishlistStatus,
+        likedProductsStatus: LikedStatus
     }
 }
