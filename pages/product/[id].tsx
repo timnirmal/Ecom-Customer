@@ -6,10 +6,36 @@ import ProductOverView from "../../components/ProductPage/ProductOverView";
 import {supabaseClient} from "../../lib/supabase";
 
 
-let ProductPage: NextPage<NextAppProductIDPageProps> = ({userAgent, product, error, children, ...props}) => {
+let ProductPage: NextPage<NextAppProductIDPageProps> = ({
+                                                            userAgent,
+                                                            product,
+                                                            error,
+                                                            wishlistStatus,
+                                                            children,
+                                                            ...props
+                                                        }) => {
     console.log("UserAgent", userAgent)
     console.log("Products", product)
     console.log("Products Error", error)
+    console.log("Products WishlistStatus", wishlistStatus)
+    console.log("Products WishlistStatus", wishlistStatus)
+    console.log("Products WishlistStatus", wishlistStatus)
+    console.log("Products WishlistStatus", wishlistStatus)
+    console.log("Products WishlistStatus", wishlistStatus)
+    console.log("Products WishlistStatus", wishlistStatus)
+    console.log("Products WishlistStatus", wishlistStatus)
+    console.log("Products WishlistStatus", wishlistStatus)
+    console.log("Products WishlistStatus", wishlistStatus)
+    // console.log("Products WishlistStatus", wishlistStatus)
+    // console.log("Products WishlistStatus", wishlistStatus)
+    // console.log("Products WishlistStatus", wishlistStatus)
+    // // iterate over wishlistStatus and find it any item.id === product.id
+    // const wishlistStatusItem = wishlistStatus.find(item => {
+    //     console.log("item.id", item.id)
+    //     console.log("product.id", Number(userAgent))
+    //     return item.id === Number(userAgent);
+    // })
+    // console.log("WishlistStatusItem", wishlistStatusItem)
 
 
     // SKU: "test-123"
@@ -58,67 +84,67 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({userAgent, product, err
             orders: "100",
         }
 
-/*
-let ProductData =
-    {
-        id: "1",
-        color: "red-500",
-        brandName: "BRAND NAME",
-        productName: "PRODUCT NAME",
-        price: "$100",
-        productDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        //productImage: "https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-        productImage: "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-        rating: 3.5,
-        // properties: [
-        //     {
-        //         name: "Size",
-        //         value: ["SM", "M", "L", "XL"],
-        //         display: true
-        //     },
-        //     {
-        //         name: "Color",
-        //         value: ["blue", "red", "white"],
-        //         display: true
-        //     },
-        //     {
-        //         name: "Material",
-        //         value: ["Cotton", "Polyester", "Nylon"],
-        //         //value: "Cotton",
-        //
-        //         display: true
-        //     },
-        //     {
-        //         name: "Weight",
-        //         value: "100g",
-        //         display: false
-        //     },
-        //     {
-        //         name: "Dimensions",
-        //         value: "100x100x100",
-        //         display: false
-        //     }
-        // ],
-        properties: product[0].properties,
-        // TODO: Code again with property data like below
-        property: {
-            sizes: ["SM", "M", "L", "XL"],
-            colors: ["blue", "red", "white"],
-            colorsAvailability: [true, true, true],
-            materials: ["Cotton", "Polyester", "Nylon"],
-            weight: "100g",
-            dimensions: "100x100x100"
-        },
-        category: "Category",
-        subCategory: "Sub Category",
-        tags: ["tag1", "tag2", "tag3"],
-        reviews: "100",
-        stock: "100",
-        discount: "10",
-        discountPrice: "90",
-        orders: "50",
-    }
-*/
+    /*
+    let ProductData =
+        {
+            id: "1",
+            color: "red-500",
+            brandName: "BRAND NAME",
+            productName: "PRODUCT NAME",
+            price: "$100",
+            productDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            //productImage: "https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+            productImage: "https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+            rating: 3.5,
+            // properties: [
+            //     {
+            //         name: "Size",
+            //         value: ["SM", "M", "L", "XL"],
+            //         display: true
+            //     },
+            //     {
+            //         name: "Color",
+            //         value: ["blue", "red", "white"],
+            //         display: true
+            //     },
+            //     {
+            //         name: "Material",
+            //         value: ["Cotton", "Polyester", "Nylon"],
+            //         //value: "Cotton",
+            //
+            //         display: true
+            //     },
+            //     {
+            //         name: "Weight",
+            //         value: "100g",
+            //         display: false
+            //     },
+            //     {
+            //         name: "Dimensions",
+            //         value: "100x100x100",
+            //         display: false
+            //     }
+            // ],
+            properties: product[0].properties,
+            // TODO: Code again with property data like below
+            property: {
+                sizes: ["SM", "M", "L", "XL"],
+                colors: ["blue", "red", "white"],
+                colorsAvailability: [true, true, true],
+                materials: ["Cotton", "Polyester", "Nylon"],
+                weight: "100g",
+                dimensions: "100x100x100"
+            },
+            category: "Category",
+            subCategory: "Sub Category",
+            tags: ["tag1", "tag2", "tag3"],
+            reviews: "100",
+            stock: "100",
+            discount: "10",
+            discountPrice: "90",
+            orders: "50",
+        }
+    */
 
     return (
         <div>
@@ -155,6 +181,7 @@ let ProductData =
                     discount={ProductData.discount}
                     discountprice={ProductData.discountPrice}
                     orders={ProductData.orders}
+                    wishliststatus={wishlistStatus}
                 />
 
                 <Carousel playTime={3000}/>
@@ -203,9 +230,41 @@ ProductPage.getInitialProps = async ({query}) => {
     }
     console.log("Product Data hhhhhhhh", data)
 
+
+    async function getData() {
+        let {data: cart, errors} = await supabaseClient
+            .from('wishlist')
+            .select('items')
+        //.eq('items.id', id)
+
+        if (errors) {
+            console.log(errors)
+            if (toString(errors).includes("Cannot read properties of undefined (reading 'items')")) {
+                console.log("Unauthorized")
+                return
+            }
+        }
+        console.log("Wishlist kkkkkkk", cart[0].items)
+        return cart[0].items
+    }
+
+    let prevData = [];
+
+    try {
+        prevData = await getData()
+    } catch (errors) {
+        console.log("Err", errors)
+    }
+
+    console.log("Prev Data", prevData)
+
+    // if productid already exists, remove it, else add it
+    const wishlistStatus = !!prevData.find(item => item.id === Number(id));
+
     return {
         userAgent: id,
         product: data,
-        error: error
+        error: error,
+        wishlistStatus: wishlistStatus
     }
 }

@@ -23,6 +23,7 @@ export default function ProductOverView({children, className, ...props}) {
     const [price, setPrice] = React.useState(Number((priceWithoutDiscount - (priceWithoutDiscount * props.discount / 100)).toFixed(2)));
 
     const [quantity, setQuantity] = React.useState(1);
+    const [wishlistStatus, setWishlistStatus] = React.useState(props.wishliststatus);
 
     function setSizeRadio(e) {
         setSize(e.target.value);
@@ -330,8 +331,16 @@ export default function ProductOverView({children, className, ...props}) {
                                     Add to Cart
                                 </button>
 
-                                <button className="rounded-full w-10 h-10 bg-gray-400 p-0 border-0 inline-flex items-center justify-center
-                                text-gray-500 ml-4 hover:bg-red-600"
+                                {/* Wishlist */}
+                                <button className={"rounded-full w-10 h-10 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4 hover:bg-red-600" + (wishlistStatus ? " bg-red-500" : " bg-gray-400")}
+
+                                    onClick={() => {
+                                        console.log("ID", parseInt(props.id))
+                                        console.log("Users", users)
+                                        addToWishlist(parseInt(props.id), users)
+                                        setWishlistStatus(!wishlistStatus)
+                                    }
+                                    }
                                 >
                                     <svg fill="white" strokeLinecap="round" strokeLinejoin="round"
                                          strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
@@ -530,3 +539,74 @@ function addToCart(productid: number, price: number, color: string | undefined, 
 }
 
 
+/**
+ *
+ * @param productid
+ * @param users
+ */
+function addToWishlist(productid: number, users: any) {
+    let valueAdded = false;
+
+    const datalist = {
+        id: productid,
+        created_at: new Date().toISOString(),
+    }
+    console.log("DataList ", datalist)
+
+    async function getData() {
+        let {data: cart, errors} = await supabaseClient
+            .from('wishlist')
+            .select('items')
+            //.eq('items.id', productid)
+
+        if (errors) {
+            console.log(errors)
+            if (toString(errors).includes("Cannot read properties of undefined (reading 'items')")) {
+                console.log("Unauthorized")
+                return
+            }
+        }
+        console.log("Wishlist kkkkkkk", cart[0].items)
+        return cart[0].items
+    }
+
+    async function postData() {
+
+        let prevData = [];
+        try {
+            prevData = await getData()
+        } catch (errors) {
+            console.log("Err", errors)
+        }
+
+        console.log("Prev Data", prevData)
+
+        // if productid already exists, remove it, else add it
+        if (prevData.find(item => item.id === productid)) {
+            prevData = prevData.filter(item => item.id !== productid)
+            valueAdded = false;
+        }
+        else {
+            prevData.push(datalist)
+            valueAdded = true;
+        }
+
+        console.log("New Array", prevData)
+
+        const {data, error} = await supabaseClient
+            .from('wishlist')
+            .insert([{id: users.id, items: prevData}], {upsert: true})
+
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(data)
+        }
+        console.log("Data added", data)
+    }
+
+    postData()
+
+    return valueAdded
+
+}
