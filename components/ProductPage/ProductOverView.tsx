@@ -349,8 +349,13 @@ export default function ProductOverView({children, className, ...props}) {
                                     </svg>
                                 </button>
 
-                                <button className="rounded-full w-10 h-10 bg-gray-400 p-0 border-0 inline-flex items-center justify-center
-                                text-gray-500 ml-4 hover:bg-blue-600"
+                                <button className={"rounded-full w-10 h-10 bg-gray-400 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4 hover:bg-blue-600"  + (wishlistStatus ? " bg-blue-500" : " bg-gray-400")}
+                                    onClick={() => {
+                                        console.log("ID", parseInt(props.id))
+                                        console.log("Users", users)
+                                        addToLikedProducts(parseInt(props.id), users)
+                                    }
+                                    }
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20"
                                          fill="currentColor">
@@ -596,6 +601,83 @@ function addToWishlist(productid: number, users: any) {
         const {data, error} = await supabaseClient
             .from('wishlist')
             .insert([{id: users.id, items: prevData}], {upsert: true})
+
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(data)
+        }
+        console.log("Data added", data)
+    }
+
+    postData()
+
+    return valueAdded
+
+}
+
+/**
+ *
+ * @param productid
+ * @param users
+ * */
+function addToLikedProducts(productid: number, users: any) {
+    let valueAdded = false;
+
+    let productidArray = []
+    productidArray.push(productid)
+
+
+    async function getData() {
+        console.log("kkkkkkkkkkkkkkkkkkk")
+
+        let { data: likedproduct, errors } = await supabaseClient
+            .from('likedproduct')
+            .select('productids')
+            .eq('id', users.id)
+            // .contains('productids', `(${productidArray}]` )
+
+        if (errors) {
+            console.log(errors)
+            if (toString(errors).includes("Cannot read properties of undefined (reading 'items')")) {
+                console.log("Unauthorized")
+                return
+            }
+        }
+        console.log("Wishlist kkkkkkk", likedproduct[0].productids)
+        console.log("Wishlist kkkkkkk", likedproduct[0])
+        console.log("Wishlist kkkkkkk", likedproduct)
+        console.log("Wishlist kkkkkkk", likedproduct)
+        console.log("Wishlist kkkkkkk", likedproduct)
+        console.log("Wishlist kkkkkkk", likedproduct)
+        return likedproduct[0].productids
+    }
+
+    async function postData() {
+        let prevData = [];
+        try {
+            prevData = await getData()
+        } catch (errors) {
+            console.log("Err", errors)
+        }
+
+        console.log("Prev Data", prevData)
+
+        // if productid already exists, remove it, else add it
+
+        if (prevData.find(item => item === productid)) {
+            prevData = prevData.filter(item => item !== Number(productid))
+            valueAdded = false;
+        } else {
+            prevData.push(Number(productid))
+            valueAdded = true;
+        }
+
+        console.log("New Array", prevData)
+
+        const {data, error} = await supabaseClient
+            .from('likedproduct')
+            .insert([{id: users.id, productids: prevData}], {upsert: true})
 
         if (error) {
             console.log(error)

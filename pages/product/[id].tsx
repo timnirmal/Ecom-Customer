@@ -231,8 +231,11 @@ ProductPage.getInitialProps = async ({query}) => {
     console.log("Product Data hhhhhhhh", data)
 
 
+    /**
+     * Getting Wishlist Status
+     * */
     async function getData() {
-        let {data: cart, errors} = await supabaseClient
+        let {data: wishlist, errors} = await supabaseClient
             .from('wishlist')
             .select('items')
         //.eq('items.id', id)
@@ -244,8 +247,8 @@ ProductPage.getInitialProps = async ({query}) => {
                 return
             }
         }
-        console.log("Wishlist kkkkkkk", cart[0].items)
-        return cart[0].items
+        console.log("Wishlist kkkkkkk", wishlist[0].items)
+        return wishlist[0].items
     }
 
     let prevData = [];
@@ -258,8 +261,16 @@ ProductPage.getInitialProps = async ({query}) => {
 
     console.log("Prev Data", prevData)
 
-    // if productid already exists, remove it, else add it
+    // if productid already exists, then set wishlist status to true
     const wishlistStatus = !!prevData.find(item => item.id === Number(id));
+
+
+    /**
+     * Getting LikedProducts Status
+     */
+
+
+
 
     return {
         userAgent: id,
