@@ -174,7 +174,6 @@ ProductPage.defaultProps = {
 
 ProductPage.getInitialProps = async ({query}) => {
     console.log("Get Initial Props")
-    console.log("Get Initial Props")
 
     const user = query.id
     let id: string;
@@ -192,7 +191,7 @@ ProductPage.getInitialProps = async ({query}) => {
     if (error) {
         console.log("Error ", error)
     }
-    console.log("Product Data hhhhhhhh", data)
+    console.log("Product Data ", data)
 
 
     /**
@@ -211,7 +210,7 @@ ProductPage.getInitialProps = async ({query}) => {
                 return
             }
         }
-        console.log("Wishlist kkkkkkk", wishlist[0].items)
+        console.log("Wishlist ", wishlist[0].items)
         return wishlist[0].items
     }
 
@@ -233,13 +232,10 @@ ProductPage.getInitialProps = async ({query}) => {
      * Getting LikedProducts Status
      */
     async function getDataLiked() {
-        console.log("kkkkkkkkkkkkkkkkkkk")
-
         let { data: likedproduct, errors } = await supabaseClient
             .from('likedproduct')
             .select('productids')
             .eq('id', users.id)
-        // .contains('productids', `(${productidArray}]` )
 
         if (errors) {
             console.log(errors)
@@ -248,12 +244,7 @@ ProductPage.getInitialProps = async ({query}) => {
                 return
             }
         }
-        console.log("Wishlist kkkkkkk", likedproduct[0].productids)
-        console.log("Wishlist kkkkkkk", likedproduct[0])
-        console.log("Wishlist kkkkkkk", likedproduct)
-        console.log("Wishlist kkkkkkk", likedproduct)
-        console.log("Wishlist kkkkkkk", likedproduct)
-        console.log("Wishlist kkkkkkk", likedproduct)
+        console.log("Wishlist ", likedproduct[0].productids)
         return likedproduct[0].productids
     }
 
@@ -267,7 +258,6 @@ ProductPage.getInitialProps = async ({query}) => {
 
     // if productid already exists, then set wishlist status to true
     const LikedStatus = !!prevData.find(item => item === Number(id));
-
 
     return {
         userAgent: id,

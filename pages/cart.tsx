@@ -9,9 +9,11 @@ import {GetServerSideProps, InferGetServerSidePropsType} from 'next'
 import {supabaseClient} from '../lib/supabase'
 import {NextAppPageServerSideProps} from '../types/app'
 import CartCard from '../components/Card/Cart'
+// import useSWR from 'swr'
+//const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 
-const Cart = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     const {
         users,       // Logged in user object
         loading,    // Loading state
@@ -29,6 +31,35 @@ const Cart = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     if (userLoading) {
         return <SpinnerFullPage/>
     }
+
+    // TODO: Try SWR Hook
+    // const {data, error} = useSWR('/api/profile-data', fetcher)
+    //
+    // if (error) return <div>Failed to load</div>
+    // if (!data) return <div>Loading...</div>
+    //
+    // console.log("Int Data ", data)
+    // console.log("Int Data ", data.cart)
+
+
+    // Get data with UseEffect
+    // useEffect(() => {
+    //     const NewData = getData();
+    //     console.log("New Data ", NewData)
+    // }, []);
+
+    console.log("Data ", data)
+
+    // created_at: "2022-07-05T17:58:29.178Z"
+    // id: 3
+    // properties:
+    // color: "red"
+    // material: "silk"
+    // size: "XL"
+    // [[Prototype]]: Object
+    // quantity: "4"
+
+
 
     // TODO: Get Cart Data from the database
     let cartData = {
@@ -67,7 +98,7 @@ const Cart = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
                 {/* Cart */}
                 <div className="flex flex-row basis-3/4 border border-blue-500">
 
-                    <div className="flex flex-col  flex-grow items-center">
+                    <div className="flex flex-col flex-grow items-center">
 
                         <h1 className="text-3xl font-bold text-center mt-6">Cart</h1>
 
@@ -77,7 +108,7 @@ const Cart = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
                             ))}
                         </div>
 
-                        {/*<div className="flex flex-col items-center">
+                        <div className="flex flex-col items-center">
                             <div className="flex flex-col items-center">
                                 <h2 className="text-2xl font-bold text-center">Total: ${cartData.total}</h2>
                             </div>
@@ -88,7 +119,7 @@ const Cart = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
                                     </a>
                                 </Link>
                             </div>
-                        </div>*/}
+                        </div>
 
                     </div>
 
@@ -121,6 +152,8 @@ export default Cart
 export const getServerSideProps: GetServerSideProps = async ({req}): Promise<NextAppPageServerSideProps> => {
     const {user} = await supabaseClient.auth.api.getUserByCookie(req)
 
+    const data = await getData();
+
     if (!user) {
         return {
             redirect: {
@@ -131,10 +164,45 @@ export const getServerSideProps: GetServerSideProps = async ({req}): Promise<Nex
     }
     // or, alternatively, can send the same values that client-side context populates to check on the client and redirect
     // The following lines won't be used as we're redirecting above
+
+
     return {
         props: {
             user,
-            loggedIn: !!user
+            loggedIn: !!user,
+            data: data
         }
     }
 }
+
+
+
+
+// Function to get the cart data from the database
+async function getData() {
+    console.log("Getting Data")
+
+    let {data: cart, errors} = await supabaseClient
+        .from('cart')
+        .select('*')
+
+    if (errors) {
+        console.log(errors)
+        if (toString(errors).includes("Cannot read properties of undefined (reading 'items')")) {
+            console.log("Unauthorized")
+            return
+        }
+    }
+    console.log("Wishlist kkkkkkk", cart[0].items)
+    console.log("Wishlist kkkkkkk", cart[0])
+    console.log("Wishlist kkkkkkk", cart)
+
+    // TODO: Get other Cart Data from the products table and add it to json data
+    // cart[0].items.map((item) => (
+    //     console.log("Item ", item)
+    // ))
+
+    return cart[0].items
+}
+
+

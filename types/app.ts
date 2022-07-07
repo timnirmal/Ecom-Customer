@@ -17,10 +17,17 @@ export type NextAppProductIDPageProps = {
     likedProductsStatus?: boolean,
 }
 
+export type NextCartPageProps = {
+    meta: NextAppSEOProps,
+    data?: object,
+    error?: string,
+}
+
 export type NextAppPageUserProps = {
     props: {
         user: User,
-        loggedIn: boolean
+        loggedIn: boolean,
+        data?: any,
     }
 }
 
