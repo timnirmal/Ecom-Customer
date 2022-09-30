@@ -484,6 +484,8 @@ function addToCart(productid: number, price: number, color: string | undefined, 
     console.log("DataList ", datalist)
 
     async function getData() {
+        console.log ("usererrrrr", users)
+
         let {data: cart, errors} = await supabaseClient
             .from('cart')
             .select('items')
@@ -496,6 +498,7 @@ function addToCart(productid: number, price: number, color: string | undefined, 
             }
         }
         console.log("Wishlist kkkkkkk", cart[0].items)
+        console.log("Wishlist ppppppppp", cart)
         return cart[0].items
     }
 

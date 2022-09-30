@@ -65,7 +65,7 @@ const Wishlist = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
         <Layout useBackdrop={false} usePadding={true}>
             <div className="flex flex-row justify-center items-center relative">
                 {/* Cart */}
-                <div className="flex flex-row basis-3/4 border border-blue-500">
+                <div className="flex flex-row ">
 
                     <div className="flex flex-col  flex-grow items-center">
 
@@ -77,35 +77,11 @@ const Wishlist = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
                             ))}
                         </div>
 
-                        {/*<div className="flex flex-col items-center">
-                            <div className="flex flex-col items-center">
-                                <h2 className="text-2xl font-bold text-center">Total: ${cartData.total}</h2>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <Link href="/checkout">
-                                    <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        Checkout
-                                    </a>
-                                </Link>
-                            </div>
-                        </div>*/}
 
                     </div>
 
                 </div>
 
-
-                <div className="flex flex-row basis-1/4 justify-center items-center border border-blue-500 ">
-                    Checkout
-                </div>
-
-                <div className="absolute bottom-0 right-0 mb-4 mr-4">
-                    <Link href="/">
-                        <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Continue Shopping
-                        </a>
-                    </Link>
-                </div>
 
             </div>
 

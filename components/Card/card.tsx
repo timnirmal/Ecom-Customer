@@ -23,7 +23,7 @@ export default function Card({children, className, ...props}) {
                 <div className="lg:h-72 md:h-56 sm:h-28 rounded-lg overflow-hidden relative p-3">
 
                     <Link href="/product/[id]" as={`/product/${titleId}`}>
-                        <a href="#">
+                        <a>
                             <img src={props.src} className="object-cover w-full h-full rounded-2xl"
                                  alt=""/>
                             {/*<Image

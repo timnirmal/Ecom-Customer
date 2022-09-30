@@ -4,6 +4,11 @@ import Layout from '../../components/Layout'
 import Carousel from "../../components/Carousel/Carousel";
 import ProductOverView from "../../components/ProductPage/ProductOverView";
 import {supabaseClient} from "../../lib/supabase";
+import Card from "../../components/Card/card";
+import {useEffect, useState} from "react";
+
+import useSWR from 'swr'
+import {array} from "prop-types";
 
 
 let ProductPage: NextPage<NextAppProductIDPageProps> = ({
@@ -116,6 +121,39 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
         }
     */
 
+    let OtherData;
+    // const [data, setData] = useState(null)
+    // const [isLoading, setLoading] = useState(false)
+    //
+    // useEffect(() => {
+    //     setLoading(true)
+    //     fetch('/api/recommendation')
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setData(data)
+    //             setLoading(false)
+    //         })
+    // }, [])
+    //
+    // if (isLoading) return <p>Loading...</p>
+    // if (!data) return <p>No profile data</p>
+
+
+    const fetcher = (...args) => fetch(...args).then((res) => res.json())
+
+    const payload = 17 // ID is 17
+
+    const { data, errorss } = useSWR('http://127.0.0.1:8000/recommendation/'+payload, fetcher)
+
+    console.log('http://127.0.0.1:8000/recommendation/'+payload)
+    console.log('http://127.0.0.1:8000/recommendation/'+payload)
+    console.log('http://127.0.0.1:8000/recommendation/'+payload)
+
+    console.log(data)
+    console.log(data)
+    console.log(data)
+
+
     return (
         <div>
             {/*<Head>*/}
@@ -147,6 +185,20 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
                     wishliststatus={wishlistStatus}
                     likedproductstatus={likedProductsStatus}
                 />
+
+                {/*Product Recommendation Bar*/}
+                {errorss ? <div>Failed to load</div> : <div></div>}
+
+                {!data ? <div>Loading...</div> :
+                    <div> data</div>
+                }
+
+                {console.log(data)}
+                {/*For each item in data array*/}
+
+
+
+
 
                 <Carousel playTime={3000}/>
 

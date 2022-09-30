@@ -1,5 +1,5 @@
 import {createContext, FunctionComponent, useState, useEffect} from 'react'
-import { User, Session, AuthChangeEvent } from '@supabase/supabase-js'
+import {User, Session, AuthChangeEvent} from '@supabase/supabase-js'
 import Router from 'next/router'
 import {supabaseClient} from '../supabase'
 import {useMessage} from '../message'
@@ -26,20 +26,20 @@ export const AuthProvider: FunctionComponent = ({
                                                 }) => {
     const [loading, setLoading] = useState(false)
     const {handleMessage} = useMessage()
-    const [ user, setUser ] = useState<User>(null)
-    const [ userLoading, setUserLoading ] = useState(true)
-    const [ loggedIn, setLoggedin ] = useState(false)
-    const [ userData, setUserData ] = useState<User>(null)
+    const [user, setUser] = useState<User>(null)
+    const [userLoading, setUserLoading] = useState(true)
+    const [loggedIn, setLoggedin] = useState(false)
+    const [userData, setUserData] = useState<User>(null)
 
     const insertProfile = async (user: User | null, payload) => {
         console.log('insertProfile User', user)
         console.log('insertProfile Pyaload', payload)
         try {
-            const { data, error } = await supabaseClient
+            const {data, error} = await supabaseClient
                 .from('profiles')
                 .insert([
-                    { id: user.id, email: user.email, password: payload.password }
-                ],{ upsert: true })
+                    {id: user.id, email: user.email, password: payload.password}
+                ], {upsert: true})
 
             if (error) {
                 if (handleMessage) {
@@ -66,7 +66,7 @@ export const AuthProvider: FunctionComponent = ({
                     handleMessage({message: error.message, type: 'error'})
                 }
             } else {
-                if (user){
+                if (user) {
                     console.error("Sign up success", user, payload)
                     await insertProfile(user, payload)
                 }
@@ -84,12 +84,11 @@ export const AuthProvider: FunctionComponent = ({
     }
 
 
-
     const signIn = async (payload: SupabaseAuthPayload) => {
         console.log('signin', payload)
         try {
             setLoading(true)
-            const { error, user } = await supabaseClient.auth.signIn(payload)
+            const {error, user} = await supabaseClient.auth.signIn(payload)
             if (error) {
                 handleMessage({message: error.message, type: 'error'})
             } else {
@@ -111,7 +110,7 @@ export const AuthProvider: FunctionComponent = ({
 
     const signInWithGithub = async (evt) => {
         evt.preventDefault()
-        await supabaseClient.auth.signIn({ provider: 'github'}
+        await supabaseClient.auth.signIn({provider: 'github'}
             /*, { redirectTo: 'http://localhost:3000/test' }*/
         )
     }
@@ -121,9 +120,9 @@ export const AuthProvider: FunctionComponent = ({
     const setServerSession = async (event: AuthChangeEvent, session: Session) => {
         await fetch('/api/auth', {
             method: 'POST',
-            headers: new Headers({ 'Content-Type': 'application/json' }),
+            headers: new Headers({'Content-Type': 'application/json'}),
             credentials: 'same-origin',
-            body: JSON.stringify({ event, session }),
+            body: JSON.stringify({event, session}),
         })
     }
 
@@ -139,30 +138,34 @@ export const AuthProvider: FunctionComponent = ({
         }
 
         // load user data from database
-        async function getUserData ()  {
-            console.log('getUserData', user.email)
+        async function getUserData() {
+            if (user) {
+                console.log("console user", user)
+                console.log('getUserData', user.email)
+                let {data, error} = await supabaseClient
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', user.id)
 
-            let { data, error } = await supabaseClient
-                .from('profiles')
-                .select('*')
-                .eq('id', user.id)
+                if (error) {
+                    if (handleMessage) {
+                        handleMessage({message: error.message, type: 'error'})
+                    }
+                }
 
-            if (error) {
-                if (handleMessage) {
-                    handleMessage({message: error.message, type: 'error'})
+                if (data) {
+                    console.log("User Data detials", data)
+                    setUserData(data[0])
                 }
             }
 
-            if (data) {
-                console.log("User Data detials", data)
-                setUserData(data[0])
-            }
+
         }
 
         getUserData()
 
 
-        const { data: authListener } = supabaseClient.auth.onAuthStateChange(
+        const {data: authListener} = supabaseClient.auth.onAuthStateChange(
             async (event, session) => {
                 console.log('authListener', event)
                 console.log('authListener Session', session)
@@ -179,12 +182,10 @@ export const AuthProvider: FunctionComponent = ({
                     if (route) {
                         if (route === ROUTE_PROFILE.substring(1)) {
                             Router.push(ROUTE_HOME)
-                        }
-                        else {
+                        } else {
                             Router.push(route)
                         }
-                    }
-                    else {
+                    } else {
                         Router.push(ROUTE_HOME)
                     }
                     //Router.push(ROUTE_HOME)

@@ -312,8 +312,8 @@ export default function Example() {
                                 <a href="#">
                                     <span className="sr-only">Workflow</span>
                                     <img
-                                        className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                                        className="h-14 w-auto"
+                                        src="logo.png"
                                         alt=""
                                     />
                                 </a>

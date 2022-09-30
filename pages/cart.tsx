@@ -60,7 +60,6 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
     // quantity: "4"
 
 
-
     // TODO: Get Cart Data from the database
     let cartData = {
         items: [
@@ -96,7 +95,7 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
         <Layout useBackdrop={false} usePadding={true}>
             <div className="flex flex-row justify-center items-center relative">
                 {/* Cart */}
-                <div className="flex flex-row basis-3/4 border border-blue-500">
+                <div className="flex flex-row basis-3/4">
 
                     <div className="flex flex-col flex-grow items-center">
 
@@ -108,26 +107,29 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
                             ))}
                         </div>
 
-                        <div className="flex flex-col items-center">
-                            <div className="flex flex-col items-center">
-                                <h2 className="text-2xl font-bold text-center">Total: ${cartData.total}</h2>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <Link href="/checkout">
-                                    <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        Checkout
-                                    </a>
-                                </Link>
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>
 
 
-                <div className="flex flex-row basis-1/4 justify-center items-center border border-blue-500 ">
-                    Checkout
+                <div className="flex basis-1/4 justify-between mb-132  ">
+
+                    <div className="flex flex-col ">
+                        <div className="text-2xl font-bold text-center mb-10">Order Summery</div>
+                        <div className="flex flex-col ">
+                            <h2 className="text-xl mb-1 ">Subtotal : ${cartData.total}</h2>
+                            <h2 className="text-xl mb-2 ">Shipping: ${20}</h2>
+                            <hr className="border-b-1 border-gray-300 p-2"/>
+                            <h2 className="text-2xl font-bold  mb-6">Total: ${80}</h2>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <Link href="/checkout">
+                                <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Checkout
+                                </a>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="absolute bottom-0 right-0 mb-4 mr-4">
@@ -176,8 +178,6 @@ export const getServerSideProps: GetServerSideProps = async ({req}): Promise<Nex
 }
 
 
-
-
 // Function to get the cart data from the database
 async function getData() {
     console.log("Getting Data")
@@ -193,8 +193,8 @@ async function getData() {
             return
         }
     }
-    console.log("Wishlist kkkkkkk", cart[0].items)
-    console.log("Wishlist kkkkkkk", cart[0])
+    console.log("Wishlist kkkkkkk", cart)
+    console.log("Wishlist kkkkkkk", cart)
     console.log("Wishlist kkkkkkk", cart)
 
     // TODO: Get other Cart Data from the products table and add it to json data
@@ -202,7 +202,7 @@ async function getData() {
     //     console.log("Item ", item)
     // ))
 
-    return cart[0].items
+    return cart
 }
 
 
