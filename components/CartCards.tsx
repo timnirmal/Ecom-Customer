@@ -67,12 +67,6 @@ export default function CartCards({children, className, ...props}) {
             console.log("Data length", data.data.length - 1)
             if (currentRead == data.data.length - 1) {
                 console.log(totalPrice)
-                console.log(totalPrice)
-                console.log(totalPrice)
-                console.log(totalPrice)
-                console.log(totalPrice)
-                console.log(totalPrice)
-                console.log(totalPrice)
                 props.returnFunc(totalPrice)
             }
         }
