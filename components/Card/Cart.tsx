@@ -7,6 +7,8 @@ export default function CartCard({children, className, ...props}) {
     const {id} = router.query
     const title = props.title || 'Card'
 
+    console.log("Printing data", props)
+
     return (
         <div className={`card ${className}`} {...props}>
             <div
@@ -25,7 +27,7 @@ export default function CartCard({children, className, ...props}) {
                             {props.item.name}
                         </h1>
                         <div className="flex-auto text-lg font-medium text-slate-500">
-                            ${props.item.price}
+                            {props.item.price}
                         </div>
                         <div className="text-xs leading-6 font-medium uppercase text-slate-500">
                             {props.item.stock ?
@@ -40,7 +42,7 @@ export default function CartCard({children, className, ...props}) {
                                 <input className="sr-only peer" name="size" type="radio" value="xs" checked/>
                                 <div
                                     className="w-7 h-7 rounded-full flex items-center justify-center text-slate-500 peer-checked:bg-slate-100 peer-checked:text-slate-900">
-                                    XS
+                                    SM
                                 </div>
                             </label>
                             <label>
