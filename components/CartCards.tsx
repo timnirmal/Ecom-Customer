@@ -15,6 +15,8 @@ export default function CartCards({children, className, ...props}) {
 
     let productArray = []
     let cartArray = []
+    let totalPrice = 0
+    let currentRead = 0
 
     if (props.data && props.users && props.users.id) {
 
@@ -29,6 +31,7 @@ export default function CartCards({children, className, ...props}) {
             console.log(data.data)
             console.log(data)
             console.log(data)
+
 
             props.data.forEach(element => {
                 console.log(element)
@@ -45,17 +48,33 @@ export default function CartCards({children, className, ...props}) {
                         for (let i = 0; i < data.data.length; i++) {
                             console.log("In the array")
                             console.log(data.data[i].id)
-                            console.log(subElement.id)
+                            console.log(subElement.id)      // Cart item that we process right now
                             if (data.data[i].id == subElement.id) {
+                                console.log("The data", data.data[i])   // Corresponding Product item
                                 console.log("The data", data.data[i])
-                                console.log("The data", data.data[i])
+
+                                totalPrice += parseFloat(data.data[i].price.substring(1))
 
                                 productArray.push(data.data[i])
                             }
                         }
+                        currentRead++;
                     })
                 }
             })
+
+            console.log("Current Read", currentRead)
+            console.log("Data length", data.data.length - 1)
+            if (currentRead == data.data.length - 1) {
+                console.log(totalPrice)
+                console.log(totalPrice)
+                console.log(totalPrice)
+                console.log(totalPrice)
+                console.log(totalPrice)
+                console.log(totalPrice)
+                console.log(totalPrice)
+                props.returnFunc(totalPrice)
+            }
         }
     }
 

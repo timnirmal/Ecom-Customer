@@ -77,13 +77,14 @@ export default function CartCard({children, className, ...props}) {
                     </div>
                     <div className="flex space-x-4 mb-5 text-sm font-medium">
                         <div className="flex-auto flex space-x-4 pr-4">
+                            {/*TODO: Chnage this Select button*/}
+                            {/*<button*/}
+                            {/*    className="flex-none w-1/2 h-12 uppercase font-medium tracking-wider bg-slate-900 text-white"*/}
+                            {/*    type="submit">*/}
+                            {/*    Select*/}
+                            {/*</button>*/}
                             <button
-                                className="flex-none w-1/2 h-12 uppercase font-medium tracking-wider bg-slate-900 text-white"
-                                type="submit">
-                                Select
-                            </button>
-                            <button
-                                className="flex-none w-1/2 h-12 uppercase font-medium tracking-wider border border-slate-200 text-slate-900"
+                                className="flex-none w-1/2 h-12 uppercase font-medium tracking-wider border border-slate-200 text-slate-900 "
                                 type="button">
                                 Remove
                             </button>

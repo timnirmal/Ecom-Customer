@@ -48,7 +48,6 @@ function Sidebar() {
 
 */
 
-
 // Single data taken from API
 // {
 //         "id": 3,
@@ -61,7 +60,7 @@ function Sidebar() {
 //         }
 //     },
 
-
+/* Bad approch to fetch data
 function getItem(props) {
     let data = props.data
     let users = props.users
@@ -87,6 +86,7 @@ function getItem(props) {
         })
     }
 }
+*/
 
 const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     const {
@@ -97,13 +97,14 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
         userLoading
     } = useAuth()
 
+    const [totalPrice, setTotalPrice] = useState(0)
 
     console.log(data)
     console.log(data)
     console.log(data)
+
 
     // for each item in data if data[i].id == users.id
-
 
     // let selectedItem = getItem()
     //
@@ -205,6 +206,18 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
         total: 60
     }
 
+    const returnFunc = val => {
+        setTotalPrice(val)
+
+        console.log("returned value ", totalPrice)
+        console.log("returned value ", totalPrice)
+        console.log("returned value ", totalPrice)
+        console.log("returned value ", totalPrice)
+        console.log("returned value ", totalPrice)
+    }
+
+
+
     return (
         <Layout useBackdrop={false} usePadding={true}>
             <div className="flex flex-row justify-center items-center relative">
@@ -221,7 +234,7 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
                         {/*    ))}*/}
                         {/*</div>*/}
 
-                        <CartCards data={data} users={users}/>
+                        <CartCards data={data} users={users} returnFunc={returnFunc}/>
 
 
                     </div>
@@ -234,10 +247,10 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
                     <div className="flex flex-col ">
                         <div className="text-2xl font-bold text-center mb-10">Order Summery</div>
                         <div className="flex flex-col ">
-                            <h2 className="text-xl mb-1 ">Subtotal : ${cartData.total}</h2>
-                            <h2 className="text-xl mb-2 ">Shipping: ${20}</h2>
+                            <h2 className="text-xl mb-1 ">Subtotal : ${totalPrice.toFixed(2)}</h2>
+                            <h2 className="text-xl mb-2 ">Shipping: ${20.00}</h2>
                             <hr className="border-b-1 border-gray-300 p-2"/>
-                            <h2 className="text-2xl font-bold  mb-6">Total: ${80}</h2>
+                            <h2 className="text-2xl font-bold  mb-6">Total: ${(totalPrice+20).toFixed(2)}</h2>
                         </div>
                         <div className="flex flex-col items-center">
                             <Link href="/checkout">
