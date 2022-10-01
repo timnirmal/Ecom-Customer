@@ -143,11 +143,11 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
 
     const payload = 17 // ID is 17
 
-    const { data, errorss } = useSWR('http://127.0.0.1:8000/recommendation/'+payload, fetcher)
+    const {data, errorss} = useSWR('http://127.0.0.1:8000/recommendation/' + payload, fetcher)
 
-    console.log('http://127.0.0.1:8000/recommendation/'+payload)
-    console.log('http://127.0.0.1:8000/recommendation/'+payload)
-    console.log('http://127.0.0.1:8000/recommendation/'+payload)
+    console.log('http://127.0.0.1:8000/recommendation/' + payload)
+    console.log('http://127.0.0.1:8000/recommendation/' + payload)
+    console.log('http://127.0.0.1:8000/recommendation/' + payload)
 
     console.log(data)
     console.log(data)
@@ -188,16 +188,33 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
 
                 {/*Product Recommendation Bar*/}
                 {errorss ? <div>Failed to load</div> : <div></div>}
-
-                {!data ? <div>Loading...</div> :
-                    <div> data</div>
-                }
+                {!data ? <div>Loading...</div> : <div></div> }
 
                 {console.log(data)}
                 {/*For each item in data array*/}
-
-
-
+                <section className="container mx-auto px-0 md:px-4 py-4">
+                    <div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-4 ">
+                        {data?.map((item, index) => {
+                            //console.log(item.data[0])
+                            return (
+                                <Card
+                                    key={index}
+                                    id={item.data[0].id}
+                                    title={item.data[0].name}
+                                    src={item.data[0].src || '/Products/WhiteClock.png'}
+                                    description={item.data[0].description || ""}
+                                    actionbutton={item.data[0].actionbutton || ""}
+                                    actionbuttontext={item.data[0].actionbuttontext || ""}
+                                    action={() => {
+                                        console.log("action")
+                                    }}
+                                    url={item.data[0].url || ""}
+                                />
+                            )
+                        })}
+                    </div>
+                </section>
 
 
                 <Carousel playTime={3000}/>
@@ -284,7 +301,7 @@ ProductPage.getInitialProps = async ({query}) => {
      * Getting LikedProducts Status
      */
     async function getDataLiked() {
-        let { data: likedproduct, errors } = await supabaseClient
+        let {data: likedproduct, errors} = await supabaseClient
             .from('likedproduct')
             .select('productids')
             .eq('id', users.id)

@@ -2,16 +2,91 @@ import Link from 'next/link'
 import {useAuth} from '../lib/auth'
 import Layout from '../components/Layout'
 import {SpinnerFullPage} from '../components/Spinner'
-import {useEffect} from 'react'
+import {useEffect, useState} from "react";
 import Router from 'next/router'
 import {ROUTE_AUTH} from '../config'
 import {GetServerSideProps, InferGetServerSidePropsType} from 'next'
 import {supabaseClient} from '../lib/supabase'
 import {NextAppPageServerSideProps} from '../types/app'
 import CartCard from '../components/Card/Cart'
+import useSWR from "swr";
 // import useSWR from 'swr'
 //const fetcher = (...args) => fetch(...args).then((res) => res.json())
+import CartCards from "../components/CartCards";
 
+
+/*  // Approach to fetch data from supabase API : FAILED
+
+
+function Sidebar() {
+    const [ products, setProducts ] = useState(null); // initial value
+
+    useEffect(joj, []);
+
+    async function joj() {
+
+        let {datsa:cartDatas, error} = await supabaseClient
+            .from('products')
+            .select('*')
+            .then(users => {
+                console.log("datstsydsdgd", users)
+                console.log("datstsydsdgd", cartDatas)
+                console.log("datstsydsdgd", cartDatas)
+                console.log("datstsydsdgd", cartDatas)
+                console.log("datstsydsdgd", cartDatas)
+                console.log("datstsydsdgd", cartDatas)
+                cartDatas && setProducts(cartDatas) // your response is an array, extract the first value
+                return products
+            })
+
+    } // empty array means run this once on mount
+
+    return products && ( // only display if `user` is set
+        <p>Hello, </p>
+);
+}
+
+*/
+
+
+// Single data taken from API
+// {
+//         "id": 3,
+//         "quantity": "4",
+//         "created_at": "2022-07-05T17:58:29.178Z",
+//         "properties": {
+//             "size": "XL",
+//             "color": "red",
+//             "material": "silk"
+//         }
+//     },
+
+
+function getItem(props) {
+    let data = props.data
+    let users = props.users
+
+    if (data && users && users.id) {
+        data.forEach(element => {
+            console.log(element.id)
+            console.log(typeof (element.id))
+            console.log(users.id)
+            console.log(typeof (users.id))
+            if (element.id == users.id) {
+                console.log("Succeeded")
+                console.log("Succeeded")
+                console.log(element)
+
+                return (
+                    <div>
+                        <h1> datadata </h1>
+                        sndkjsdnsdksdnsdiknsddsidnsdisdns
+                    </div>
+                );
+            }
+        })
+    }
+}
 
 const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     const {
@@ -22,6 +97,24 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
         userLoading
     } = useAuth()
 
+
+    console.log(data)
+    console.log(data)
+    console.log(data)
+
+    // for each item in data if data[i].id == users.id
+
+
+    // let selectedItem = getItem()
+    //
+    // console.log("Slelcted ietm", selectedItem)
+    // console.log("Slelcted ietm", selectedItem)
+    // console.log("Slelcted ietm", selectedItem)
+
+
+    ////////////////////////////////////////
+    // Initial loading codes, Removed due to hook incompatibility
+    /*
     useEffect(() => {
         if (!userLoading && !loggedIn) {
             Router.push(ROUTE_AUTH)
@@ -31,6 +124,9 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
     if (userLoading) {
         return <SpinnerFullPage/>
     }
+    */
+    ////////////////////////////////////////
+
 
     // TODO: Try SWR Hook
     // const {data, error} = useSWR('/api/profile-data', fetcher)
@@ -48,7 +144,6 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
     //     console.log("New Data ", NewData)
     // }, []);
 
-    console.log("Data ", data)
 
     // created_at: "2022-07-05T17:58:29.178Z"
     // id: 3
@@ -58,6 +153,25 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
     // size: "XL"
     // [[Prototype]]: Object
     // quantity: "4"
+
+
+    // async function getData() {
+    //     let {data: cart, error} = await supabaseClient
+    //         .from('cart')
+    //         .select('*')
+    //
+    //     return cart
+    // }
+    //
+    //
+    // let cartDatas = getData().then(function (datas){
+    //     console.log("Data", datas)
+    //
+    // })
+    //
+    // console.log(cartDatas)
+
+
 
 
     // TODO: Get Cart Data from the database
@@ -101,11 +215,14 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
 
                         <h1 className="text-3xl font-bold text-center mt-6">Cart</h1>
 
-                        <div className="flex flex-col flex-1 items-center">
-                            {cartData.items.map((item) => (
-                                <CartCard key={item.id} item={item} className="flex-grow"/>
-                            ))}
-                        </div>
+                        {/*<div className="flex flex-col flex-1 items-center">*/}
+                        {/*    {cartData.items.map((item) => (*/}
+                        {/*        <CartCard key={item.id} item={item} className="flex-grow"/>*/}
+                        {/*    ))}*/}
+                        {/*</div>*/}
+
+                        <CartCards data={data} users={users}/>
+
 
                     </div>
 
