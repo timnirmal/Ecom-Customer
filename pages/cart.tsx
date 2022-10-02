@@ -336,3 +336,39 @@ async function getData() {
 }
 
 
+
+/**
+ *
+ * @param productid
+ * @param users
+ * @param productType
+ * */
+function addToInteractinos(productid: number, users: any, productType: number) {
+    let valueAdded = false;
+
+
+    async function postData() {
+
+        const { data, error } = await supabaseClient
+            .from('Interactions')
+            .insert([
+                {
+                    user: users.id,
+                    type: productType,
+                    product: productid,
+                },
+            ])
+
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(data)
+        }
+        console.log("Data added", data)
+    }
+
+    postData()
+
+    return valueAdded
+
+}

@@ -3,7 +3,7 @@ import ReviewDisplay from "./ReviewDisplay";
 import PropTypes from "prop-types";
 import {useAuth} from "../../lib/auth";
 import {supabaseClient} from "../../lib/supabase";
-
+import {useEffect} from "react";
 
 export default function ProductOverView({children, className, ...props}) {
     const {loading, signIn, signUp, users, signInWithGithub, userData} = useAuth()
@@ -47,6 +47,28 @@ export default function ProductOverView({children, className, ...props}) {
     console.log(size);
     console.log(material);
     console.log("Price ", price);
+
+    // Run code one time
+    useEffect(() => {
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log("Use Effect");
+        console.log(props)
+        console.log(props.id)
+        console.log(users)
+        if (props && users && props.id && users.id) {
+            addToInteractinos(parseInt(props?.id), users, 1)
+        }
+    }, []);
+
 
 
     // Colors
@@ -324,6 +346,7 @@ export default function ProductOverView({children, className, ...props}) {
                                         console.log("Quantity", quantity)
                                         console.log("Users", users)
                                         addToCart(parseInt(props.id), Number(price), color, size, material, quantity, users)
+                                        addToInteractinos(parseInt(props.id), users, 5)
                                     }}
                                 >
                                     Add to Cart
@@ -337,6 +360,7 @@ export default function ProductOverView({children, className, ...props}) {
                                         console.log("Users", users)
                                         addToWishlist(parseInt(props.id), users)
                                         setWishlistStatus(!wishlistStatus)
+                                        addToInteractinos(parseInt(props.id), users, 4)
                                     }
                                     }
                                 >
@@ -353,6 +377,7 @@ export default function ProductOverView({children, className, ...props}) {
                                         console.log("Users", users)
                                         addToLikedProducts(parseInt(props.id), users)
                                         setLikedProductStatus(!likedProductStatus)
+                                        addToInteractinos(parseInt(props.id), users, 2)
                                     }
                                     }
                                 >
@@ -665,6 +690,45 @@ function addToLikedProducts(productid: number, users: any) {
         const {data, error} = await supabaseClient
             .from('likedproduct')
             .insert([{id: users.id, productids: prevData}], {upsert: true})
+
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(data)
+        }
+        console.log("Data added", data)
+    }
+
+    postData()
+
+    return valueAdded
+
+}
+
+
+
+/**
+ *
+ * @param productid
+ * @param users
+ * @param productType
+ * */
+function addToInteractinos(productid: number, users: any, productType: number) {
+    let valueAdded = false;
+
+
+    async function postData() {
+
+        const { data, error } = await supabaseClient
+            .from('Interactions')
+            .insert([
+                {
+                    user: users.id,
+                    type: productType,
+                    product: productid,
+                    created_at: new Date().toISOString(),
+                },
+            ])
 
         if (error) {
             console.log(error)
