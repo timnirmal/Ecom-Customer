@@ -1,6 +1,7 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.css'
+import styles from '../styles/Home.module.css';
 
 import React from 'react'
 import type, {AppProps} from 'next/app'
@@ -10,6 +11,13 @@ import {DefaultSeo} from 'next-seo'
 import SEO from '../next-seo.config'
 import {MessageProvider} from '../lib/message'
 import {AuthProvider} from "../lib/auth";
+
+import Chatbot from 'react-chatbot-kit'
+import ActionProviderChat from "../utility/chatbot/ActionProvider";
+import MessageParserChat from "../utility/chatbot/MessageProvider";
+import ConfigChat from "../utility/chatbot/config";
+import {configs} from "@typescript-eslint/eslint-plugin";
+import '../styles/chatbox.css';
 
 function MyApp({Component, pageProps}: AppProps) {
     const pageMeta = (Component as any)?.defaultProps?.meta || {}
