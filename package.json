@@ -14,7 +14,11 @@
     "validate": "npm-run-all --parallel type-check format-check lint build"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@fortawesome/fontawesome-free": "^6.1.1",
+    "@mui/icons-material": "^5.10.6",
+    "@mui/material": "^5.10.7",
     "@popperjs/core": "^2.11.5",
     "@reach/alert": "^0.16.0",
     "add": "^2.0.6",
@@ -28,6 +32,7 @@
     "next-seo": "^5.1.0",
     "prop-types": "^15.8.1",
     "react": "17.0.2",
+    "react-chatbot-kit": "^2.1.0",
     "react-dom": "17.0.2",
     "react-easy-swipe": "^0.0.22",
     "react-icons": "^4.3.1",

@@ -2,6 +2,7 @@ import React from "react";
 
 import {useRouter} from 'next/router'
 import Link from 'next/link'
+import {supabaseClient} from "../../lib/supabase";
 
 export default function Card({children, className, ...props}) {
     //const router = useRouter()
@@ -22,7 +23,14 @@ export default function Card({children, className, ...props}) {
                 className="bg-white rounded-2xl border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-3">
                 <div className="lg:h-72 md:h-56 sm:h-28 rounded-lg overflow-hidden relative p-3">
 
-                    <Link href="/product/[id]" as={`/product/${titleId}`}>
+                    <Link href="/product/[id]" as={`/product/${titleId}`}
+                          onClick={() => {
+                              /**
+                               * Add view 1 point to view page
+                               */
+                              //addToInteractinos(parseInt(titleId), users, 1)
+                          }}
+                    >
                         <a>
                             <img src={props.src} className="object-cover w-full h-full rounded-2xl"
                                  alt=""/>
@@ -66,4 +74,42 @@ export default function Card({children, className, ...props}) {
             {children}
         </div>
     );
+}
+
+
+/**
+ *
+ * @param productid
+ * @param users
+ * @param productType
+ * */
+function addToInteractinos(productid: number, users: any, productType: number) {
+    let valueAdded = false;
+
+
+    async function postData() {
+
+        const {data, error} = await supabaseClient
+            .from('Interactions')
+            .insert([
+                {
+                    user: users.id,
+                    type: productType,
+                    product: productid,
+                    created_at: new Date().toISOString(),
+                },
+            ])
+
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(data)
+        }
+        console.log("Data added", data)
+    }
+
+    postData()
+
+    return valueAdded
+
 }

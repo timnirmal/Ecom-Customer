@@ -328,6 +328,10 @@ ProductPage.getInitialProps = async ({query}) => {
     // if productid already exists, then set wishlist status to true
     const LikedStatus = !!prevData.find(item => item === Number(id));
 
+
+
+
+
     return {
         userAgent: id,
         product: data,
@@ -335,4 +339,43 @@ ProductPage.getInitialProps = async ({query}) => {
         wishlistStatus: wishlistStatus,
         likedProductsStatus: LikedStatus
     }
+}
+
+
+
+/**
+ *
+ * @param productid
+ * @param users
+ * @param productType
+ * */
+function addToInteractinos(productid: number, users: any, productType: number) {
+    let valueAdded = false;
+
+
+    async function postData() {
+
+        const { data, error } = await supabaseClient
+            .from('Interactions')
+            .insert([
+                {
+                    user: users.id,
+                    type: productType,
+                    product: productid,
+                    created_at: new Date().toISOString(),
+                },
+            ])
+
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(data)
+        }
+        console.log("Data added", data)
+    }
+
+    postData()
+
+    return valueAdded
+
 }

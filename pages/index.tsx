@@ -7,6 +7,13 @@ import FourItemCard from "../components/Card/FourItemCard";
 import {useRouter} from "next/router";
 import {FooterBar} from "../components/Footer";
 
+import Chatbot from 'react-chatbot-kit'
+import ActionProviderChat from "../utility/chatbot/ActionProvider";
+import MessageParserChat from "../utility/chatbot/MessageProvider";
+import ConfigChat from "../utility/chatbot/config";
+import React from "react";
+
+
 // define the shape of the SignUp form's fields
 type SignUpFieldProps = {
     email: string,
@@ -152,16 +159,11 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
     return (
         <div>
             <Layout useBackdrop={true} usePadding={false}>
-                {/*<Image
-                    src="/photo-1464822759023-fed622ff2c3b.avif"
-                    alt="Picture of the author"
-                    width={500}
-                    height={500}
-                />
-                // fill,fixed,intrinsic,responsive,undefined.
-                */}
 
                 <Carousel playTime={3000}/>
+
+                {/*<div className="fixed z-300 bottom-8 right-8 bg-blue-600 w-96 h-96 flex justify-center items-center text-white text-4xl hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">box</div>*/}
+
 
 
                 <section className="container mx-auto px-0 md:px-4 py-4">
@@ -180,6 +182,7 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                             }}
                             actionurl={FourItemCardData[0].actionurl}
                         />
+
 
                         <FourItemCard
                             title={CategoryData[0].title}
@@ -228,25 +231,29 @@ const IndexPage: NextPage<NextAppPageProps> = ({}) => {
                         </div>
                         <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                             <div>
-                                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Shopping with us</h2>
+                                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Shopping
+                                    with us</h2>
                                 <ul className="text-gray-600 dark:text-gray-400">
                                     <li className="mb-4">
                                         <a href="https://flowbite.com/" className="hover:underline">Making payments</a>
                                     </li>
                                     <li>
-                                        <a href="https://tailwindcss.com/" className="hover:underline">Delivery options</a>
+                                        <a href="https://tailwindcss.com/" className="hover:underline">Delivery
+                                            options</a>
                                     </li>
                                 </ul>
                             </div>
                             <div>
-                                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Customer service</h2>
+                                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Customer
+                                    service</h2>
                                 <ul className="text-gray-600 dark:text-gray-400">
                                     <li className="mb-4">
                                         <a href="https://github.com/themesberg/flowbite"
                                            className="hover:underline ">Customer service</a>
                                     </li>
                                     <li>
-                                        <a href="https://discord.gg/4eeurUVvTy" className="hover:underline">Transaction Services Agreement</a>
+                                        <a href="https://discord.gg/4eeurUVvTy" className="hover:underline">Transaction
+                                            Services Agreement</a>
                                     </li>
                                 </ul>
                             </div>
