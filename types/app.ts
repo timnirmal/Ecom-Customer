@@ -17,6 +17,10 @@ export type NextAppProductIDPageProps = {
     likedProductsStatus?: boolean,
 }
 
+export type NextAppSearchPageProps = {
+    search_term?: string,
+}
+
 export type NextCartPageProps = {
     meta: NextAppSEOProps,
     data?: object,

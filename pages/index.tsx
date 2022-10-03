@@ -31,127 +31,6 @@ const myLoader = ({src, width, quality}) => {
 }
 
 
-// Create FourItemCard data till api is ready
-const FourItemCardData = [
-    {
-        title: "T-Shirts",
-        description: "Card description",
-        actionbutton: true,
-        actionbuttontext: "See More",
-        actionurl: "/hi",
-        product: [
-            {
-                id: 1,
-                name: 'Item 1',
-                src: '/Products/WhiteClock.png',
-            },
-            {
-                id: 2,
-                name: 'Item 2',
-                src: '/Products/WhiteClock.png',
-            },
-            {
-                id: 3,
-                name: 'Item 3',
-                src: '/Products/WhiteClock.png',
-            },
-            {
-                id: 4,
-                name: 'Item 4',
-                src: '/Products/WhiteClock.png',
-            }
-        ]
-    }
-]
-
-// Create Category data till api is ready
-const CategoryData = [
-    {
-        title: "Shop by Category",
-        description: "Card description",
-        actionbutton: false,
-        actionbuttontext: "See More",
-        actionurl: "/hi",
-        product: [
-            {
-                id: 1,
-                name: 'Item 1',
-                src: '/Products/WhiteClock.png',
-            },
-            {
-                id: 2,
-                name: 'Item 2',
-                src: '/Products/WhiteClock.png',
-            },
-            {
-                id: 3,
-                name: 'Item 3',
-                src: '/Products/WhiteClock.png',
-            },
-            {
-                id: 4,
-                name: 'Item 4',
-                src: '/Products/WhiteClock.png',
-            }
-        ]
-    }
-]
-
-// Create Other data cards
-const OtherData = [
-    {
-        id: 3,
-        name: 'Girl Blue Tshirt',
-        src: '/Products/WhiteClock.png',
-        description: 'Card description',
-        actionbutton: false,
-        url: '#2',
-    },
-    {
-        id: 16,
-        name: 'Noteworthy technology acquisitions 2021',
-        src: '/Products/WhiteClock.png',
-        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-        actionbutton: false,
-    },
-    {
-        id: 17,
-        name: 'Men-White-Watch',
-        src: '/Products/WhiteClock.png',
-        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-        actionbutton: true,
-        actionbuttontext: 'View More',
-        url: '#3',
-    },
-    {
-        id: 18,
-        name: 'Men-White-Watch',
-        src: '/Products/WhiteClock.png',
-        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-        actionbutton: true,
-        actionbuttontext: 'View More',
-        url: '#3',
-    },
-    {
-        id: 19,
-        name: 'Men-White-Watch',
-        src: '/Products/WhiteClock.png',
-        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-        actionbutton: true,
-        actionbuttontext: 'View More',
-        url: '#3',
-    },
-    {
-        id: 20,
-        name: 'Men-White-Watch',
-        src: '/Products/WhiteClock.png',
-        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-        actionbutton: true,
-        actionbuttontext: 'View More',
-        url: '#3',
-    }
-]
-
 
 const IndexPage: NextPage<NextAppPageProps> = ({}) => {
     const router = useRouter();
@@ -326,3 +205,271 @@ IndexPage.defaultProps = {
         title: 'Ecom'
     }
 }
+
+
+
+// Create FourItemCard data till api is ready
+const FourItemCardData = [
+    {
+        title: "T-Shirts",
+        description: "Card description",
+        actionbutton: true,
+        actionbuttontext: "See More",
+        actionurl: "/hi",
+        product: [
+            {
+                "id":295,
+                "name":"Bodycare Pack of 2 Assorted Lightly Padded T-shirt",
+                "description":"Pack of 2 solid medium-coverage assorted T-shirt brasLightly padded and non-wired seamless cupsRegular straps and back closureBack style: RegularFeature: All Day ComfortDisclaimer: The final product delivered might vary in colour and prints from the display here",
+                "price":"$820.00",
+                "discount":2.0,
+                "availablequality":null,
+                "joinedat":"2022-01-13T02:52:51+00:00",
+                "imgurl":null,
+                "SKU":"T-s033",
+                "stock":28,
+                "rating":3.1,
+                "buyCount":0,
+                "offer":null,
+                "properties":"{'size': {'value': ['SM', 'L']}, 'color': {'value': ['white', 'blue']}, 'material': {'value': 'cotton'}}",
+                "orders":null,
+                "gender":"Women",
+                "brand":"Bodycare",
+                "PrimaryColor":null,
+                "category":"T-shirt",
+                "Product Category Description":"T-shirt",
+                "src": '/Products/WhiteClock.png',
+            },
+            {
+                "id":446,
+                "name":"Alcis Women Blue Printed Round Neck T-shirt",
+                "description":"Blue printed T-shirt, has a round neck, and short sleeves",
+                "price":"$749.00",
+                "discount":32.0,
+                "availablequality":null,
+                "joinedat":"2022-01-13T02:52:51+00:00",
+                "imgurl":null,
+                "SKU":"T-s046",
+                "stock":36,
+                "rating":4.9,
+                "buyCount":0,
+                "offer":null,
+                "properties":"{'size': {'value': ['SM', 'L']}, 'color': {'value': ['white', 'blue']}, 'material': {'value': 'cotton'}}",
+                "orders":null,
+                "gender":"Women",
+                "brand":"Alcis",
+                "PrimaryColor":"Blue",
+                "category":"T-shirt",
+                "Product Category Description":"T-shirt",
+                "src": '/Products/WhiteClock.png',
+            },
+            {
+                "id":200,
+                "name":"Chkokko Men Black Solid Round Neck Training T-shirt",
+                "description":"Black solid training T-shirt, has a round neck, and long sleeves",
+                "price":"$649.00",
+                "discount":10.0,
+                "availablequality":null,
+                "joinedat":"2022-01-13T02:52:51+00:00",
+                "imgurl":null,
+                "SKU":"T-s018",
+                "stock":12,
+                "rating":1.4,
+                "buyCount":0,
+                "offer":null,
+                "properties":"{'size': {'value': ['SM', 'L']}, 'color': {'value': ['white', 'blue']}, 'material': {'value': 'cotton'}}",
+                "orders":null,
+                "gender":"Men",
+                "brand":"Chkokko",
+                "PrimaryColor":" Black",
+                "category":"T-shirt",
+                "Product Category Description":"T-shirt",
+                "src": '/Products/WhiteClock.png',
+            },
+            {
+                "id":198,
+                "name":"Soie Women Lime Green Printed Lounge T-shirts",
+                "description":"Lime green printed lounge t-shirts, has a round neck, short sleeves.",
+                "price":"$616.00",
+                "discount":17.0,
+                "availablequality":null,
+                "joinedat":"2022-01-13T02:52:51+00:00",
+                "imgurl":null,
+                "SKU":"T-s017",
+                "stock":84,
+                "rating":3.4,
+                "buyCount":0,
+                "offer":null,
+                "properties":"{'size': {'value': ['SM', 'L']}, 'color': {'value': ['white', 'blue']}, 'material': {'value': 'cotton'}}",
+                "orders":null,
+                "gender":"Women",
+                "brand":"Soie",
+                "PrimaryColor":" Green",
+                "category":"T-shirt",
+                "Product Category Description":"T-shirt",
+                "src": '/Products/WhiteClock.png',
+            }
+        ]
+    }
+]
+
+// Create Category data till api is ready
+const CategoryData = [
+    {
+        title: "Shop by Category",
+        description: "Card description",
+        actionbutton: false,
+        actionbuttontext: "See More",
+        actionurl: "/hi",
+        product: [
+            {
+                "id":546,
+                "name":"Louis Philippe Men Black Slim Fit Solid Regular Trousers",
+                "description":"Black solid mid-rise trousers, button closure, and 4 pockets",
+                "price":"$1,224.00",
+                "discount":37.0,
+                "availablequality":null,
+                "joinedat":"2022-01-13T02:52:51+00:00",
+                "imgurl":null,
+                "SKU":"Tro018",
+                "stock":37,
+                "rating":1.3,
+                "buyCount":0,
+                "offer":null,
+                "properties":"{'size': {'value': ['SM', 'L']}, 'color': {'value': ['white', 'blue']}, 'material': {'value': 'cotton'}}",
+                "orders":null,
+                "gender":"Men",
+                "brand":"Louis Philippe",
+                "PrimaryColor":" Black",
+                "category":"Trousers",
+                "Product Category Description":"Trousers",
+                "src": '/Products/WhiteClock.png',
+            },
+            {
+                "id":330,
+                "name":"Louis Philippe Sport Men Blue Slim Fit Solid Regular ",
+                "description":"Blue solid mid-rise trousers, button closure, and 4 pockets",
+                "price":"$2,166.00",
+                "discount":13.0,
+                "availablequality":null,
+                "joinedat":"2022-01-13T02:52:51+00:00",
+                "imgurl":null,
+                "SKU":"Tro007",
+                "stock":3,
+                "rating":1.7,
+                "buyCount":0,
+                "offer":null,
+                "properties":"{'size': {'value': ['SM', 'L']}, 'color': {'value': ['white', 'blue']}, 'material': {'value': 'cotton'}}",
+                "orders":null,
+                "gender":"Men",
+                "brand":"Louis Philippe Sport",
+                "PrimaryColor":"Blue",
+                "category":"Trousers",
+                "Product Category Description":"Trousers",
+                "src": '/Products/WhiteClock.png',
+            },
+            {
+                "id":424,
+                "name":"Carlton Women Black Regular Fit Cropped Trousers",
+                "description":"Black solid mid-rise cropped trousers with lace inserts, has a partially elasticated waistband with slip-on closure, and 2 pockets",
+                "price":"$895.00",
+                "discount":30.0,
+                "availablequality":null,
+                "joinedat":"2022-01-13T02:52:51+00:00",
+                "imgurl":null,
+                "SKU":"Tro013",
+                "stock":46,
+                "rating":4.1,
+                "buyCount":0,
+                "offer":null,
+                "properties":"{'size': {'value': ['SM', 'L']}, 'color': {'value': ['white', 'blue']}, 'material': {'value': 'cotton'}}",
+                "orders":null,
+                "gender":"Women",
+                "brand":"Carlton London",
+                "PrimaryColor":" Black",
+                "category":"Trousers",
+                "Product Category Description":"Trousers",
+                "src": '/Products/WhiteClock.png',
+            },
+            {
+                "id":362,
+                "name":"AURELIA Women Charcoal Grey Solid Regular Trousers",
+                "description":"Charcoal grey solid mid-rise trousers, has snap button closure, 2 pockets and 2 mock pockets",
+                "price":"$759.00",
+                "discount":31.0,
+                "availablequality":null,
+                "joinedat":"2022-01-13T02:52:51+00:00",
+                "imgurl":null,
+                "SKU":"Tro008",
+                "stock":66,
+                "rating":2.2,
+                "buyCount":0,
+                "offer":null,
+                "properties":"{'size': {'value': ['SM', 'L']}, 'color': {'value': ['white', 'blue']}, 'material': {'value': 'cotton'}}",
+                "orders":null,
+                "gender":"Women",
+                "brand":"AURELIA",
+                "PrimaryColor":" Grey",
+                "category":"Trousers",
+                "Product Category Description":"Trousers",
+                "src": '/Products/WhiteClock.png',
+            }
+        ]
+    }
+]
+
+
+// Create Other data cards
+const OtherData = [
+    {
+        id: 3,
+        name: 'Girl Blue Tshirt',
+        src: '/Products/WhiteClock.png',
+        description: 'Card description',
+        actionbutton: false,
+        url: '#2',
+    },
+    {
+        id: 16,
+        name: 'Noteworthy technology acquisitions 2021',
+        src: '/Products/WhiteClock.png',
+        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
+        actionbutton: false,
+    },
+    {
+        id: 17,
+        name: 'Men-White-Watch',
+        src: '/Products/WhiteClock.png',
+        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
+        actionbutton: true,
+        actionbuttontext: 'View More',
+        url: '#3',
+    },
+    {
+        id: 18,
+        name: 'Men-White-Watch',
+        src: '/Products/WhiteClock.png',
+        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
+        actionbutton: true,
+        actionbuttontext: 'View More',
+        url: '#3',
+    },
+    {
+        id: 19,
+        name: 'Men-White-Watch',
+        src: '/Products/WhiteClock.png',
+        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
+        actionbutton: true,
+        actionbuttontext: 'View More',
+        url: '#3',
+    },
+    {
+        id: 20,
+        name: 'Men-White-Watch',
+        src: '/Products/WhiteClock.png',
+        description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
+        actionbutton: true,
+        actionbuttontext: 'View More',
+        url: '#3',
+    }
+]
