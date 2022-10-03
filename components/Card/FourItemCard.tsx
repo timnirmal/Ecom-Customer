@@ -1,8 +1,8 @@
 import React from "react";
 
-function ItemCard(props: { src: any, item: any }) {
+function ItemCard(props: { src: any, item: any, url: any }) {
     return <div className="w-full w-1/2 mb-4 p-4 pr-2 pb-0 pt-2">
-        <a href="#">
+        <a href={props.url}>
             <img src={props.src} className="object-cover rounded-2xl" alt=""/>
         </a>
         <a href="#">
@@ -44,7 +44,8 @@ export default function FourItemCard({children, className, ...props}) {
                 <div className="flex flex-wrap">
                     {props.data.map((item, index) => {
                         if (index < 4) {
-                            return <ItemCard key={item.id} src={item.src} item={item.name}/>;
+                            let url = "product/"+item.name + "-" + item.id;
+                            return <ItemCard key={item.id} src={item.src} item={item.name} url={url.replace(/\s/g, '-')}/>;
                         }
                     }
                     )}

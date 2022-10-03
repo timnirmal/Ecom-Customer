@@ -1,9 +1,10 @@
 import {Fragment, useState} from 'react'
 import {Dialog, Popover, Tab, Transition} from '@headlessui/react'
-import {MenuIcon, SearchIcon, ShoppingBagIcon, XIcon, UserIcon} from '@heroicons/react/outline'
+import {MenuIcon, SearchIcon, ShoppingBagIcon, XIcon, UserIcon, HeartIcon} from '@heroicons/react/outline'
 import {ROUTE_HOME, ROUTE_AUTH, ROUTE_PROFILE} from "../config";
 import {useAuth} from "../lib/auth";
 import Link from "next/link";
+import router, { Router } from 'next/router';
 
 const navigation = {
     categories: [
@@ -139,6 +140,7 @@ function AuthShow({user, children}) {
 export default function Example() {
     const [open, setOpen] = useState(false)
     const {loading, signIn, signUp, users, signInWithGithub} = useAuth()
+    const [searchValue, setSearchValue] = useState('')
 
     console.log("User ", users)
     console.log("Loading ", loading)
@@ -444,7 +446,19 @@ export default function Example() {
 
                             <label className="relative block">
                                 <span className="sr-only">Search</span>
-                                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                                <button className="absolute inset-y-0 left-0 flex items-center pl-2"
+                                      onClick={
+                                            () => {
+                                                console.log("search")
+                                                // route to '/search' with query string
+                                                router.push({
+                                                    pathname: '/search',
+                                                    query: { q: searchValue },
+                                                })
+                                                }
+                                            }
+
+                                >
                                     {/*<svg className="h-5 w-5 fill-slate-300" viewBox="0 0 20 20">*/}
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          className="h-6 w-6 stroke-slate-400"
@@ -455,10 +469,17 @@ export default function Example() {
                                         <path strokeLinecap="round" strokeLinejoin="round"
                                               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                                     </svg>
-                                </span>
+                                </button>
                                 <input
                                     className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                                    placeholder="Search for anything..." type="text" name="search"/>
+                                    placeholder="Search for anything..." type="text" name="search"
+                                    onChange={
+                                        (e) => {
+                                            setSearchValue(e.target.value)
+                                            console.log(searchValue)
+                                        }
+                                    }
+                                />
                             </label>
 
 
@@ -518,6 +539,19 @@ export default function Example() {
                                     </a>
                                 </div>
 
+                                {/* Wishlist */}
+                                <div className="ml-4 flow-root lg:ml-6">
+                                    <Link href="/wishlist">
+                                        <a className="group -m-2 p-2 flex items-center">
+                                            <HeartIcon
+                                                className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                                                aria-hidden="true"
+                                            />
+                                            <span className="sr-only">items in wishlist, view bag</span>
+                                        </a>
+                                    </Link>
+                                </div>
+
                                 {/* Cart */}
                                 <div className="ml-4 flow-root lg:ml-6">
                                     <Link href="/cart">
@@ -539,4 +573,11 @@ export default function Example() {
             </header>
         </div>
     )
+}
+
+
+const handleSearch = (e) => {
+    e.preventDefault()
+    console.log('searching')
+    console.log(e.target.value)
 }

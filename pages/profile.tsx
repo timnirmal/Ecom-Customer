@@ -8,6 +8,9 @@ import {ROUTE_AUTH} from '../config'
 import {GetServerSideProps, InferGetServerSidePropsType} from 'next'
 import {supabaseClient} from '../lib/supabase'
 import {NextAppPageServerSideProps} from '../types/app'
+import useSWR from "swr";
+
+import Profile from "../components/Profile";
 
 
 const ProfilePage = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -31,9 +34,14 @@ const ProfilePage = ({}: InferGetServerSidePropsType<typeof getServerSideProps>)
         return <SpinnerFullPage/>
     }
 
+
+
+
+
     return (
         <Layout useBackdrop={false}>
             <div className="h-screen flex flex-col justify-center items-center relative">
+                <Profile users={users}/>
                 <h2 className="text-3xl my-4">Howdie, {users && users.email ? users.email : 'Explorer'}!</h2>
                 {!users &&
                     <small>You've landed on a protected page. Please <Link href="/">log in</Link> to view the page's
@@ -55,6 +63,7 @@ export default ProfilePage
 
 export const getServerSideProps: GetServerSideProps = async ({req}): Promise<NextAppPageServerSideProps> => {
     const {user} = await supabaseClient.auth.api.getUserByCookie(req)
+
     // We can do a re-direction from the server
     if (!user) {
         return {
@@ -72,4 +81,17 @@ export const getServerSideProps: GetServerSideProps = async ({req}): Promise<Nex
             loggedIn: !!user
         }
     }
+}
+
+
+async function getData(usersId) {
+    let {data: profiles, error} = await supabaseClient
+        .from('profiles')
+        .select('*')
+        .eq('id', usersId)
+
+    if (error) {
+        console.log('error', error)
+    }
+    console.log('profiles', profiles)
 }
