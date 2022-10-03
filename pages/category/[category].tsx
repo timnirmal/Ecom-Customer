@@ -1,26 +1,27 @@
 import {NextPage} from 'next'
-import {NextAppProductIDPageProps} from '../types/app'
-import Layout from '../components/Layout'
-import Carousel from "../components/Carousel/Carousel";
-import ProductOverView from "../components/ProductPage/ProductOverView";
-import {supabaseClient} from "../lib/supabase";
-import Card from "../components/Card/card";
+import {NextAppProductIDPageProps} from '../../types/app'
+import Layout from '../../components/Layout'
+import Carousel from "../../components/Carousel/Carousel";
+import ProductOverView from "../../components/ProductPage/ProductOverView";
+import {supabaseClient} from "../../lib/supabase";
+import Card from "../../components/Card/card";
 import {useEffect, useState} from "react";
-import Sidebar from "../components/Sidebar/Sidebar";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 import useSWR from 'swr'
 import {array} from "prop-types";
 
 
-let SearchPage: NextPage<NextAppProductIDPageProps> = ({
+let CategoryPage: NextPage<NextAppProductIDPageProps> = ({
                                                            search_term,
                                                            children,
                                                            ...props
                                                        }) => {
     console.log("Search Term", search_term)
 
+
     const [searchTerm, setSearchTerm] = useState(search_term)
-    const [searchTermFilters, setSearchTermFilters] = useState("")
+    const [searchTermFilters, setSearchTermFilters] = useState("?category=" + searchTerm)
 
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -28,9 +29,10 @@ let SearchPage: NextPage<NextAppProductIDPageProps> = ({
 
     const {data, errorss} = useSWR('http://127.0.0.1:8000/search/' + searchTermFilters, fetcher)
 
-    console.log('http://127.0.0.1:8000/recommendation/' + searchTermFilters)
-    console.log('http://127.0.0.1:8000/recommendation/' + searchTermFilters)
-    console.log('http://127.0.0.1:8000/recommendation/' + searchTermFilters)
+    console.log('http://127.0.0.1:8000/search/' + searchTermFilters)
+    console.log('http://127.0.0.1:8000/search/' + searchTermFilters)
+    console.log('http://127.0.0.1:8000/search/' + searchTermFilters)
+
 
     console.log(data)
     console.log(data)
@@ -56,17 +58,16 @@ let SearchPage: NextPage<NextAppProductIDPageProps> = ({
             {/*    <title>{id}</title>*/}
             {/*</Head>*/}
 
-            <Layout useBackdrop={true} usePadding={false}>
+            <Layout useBackdrop={false} usePadding={false}>
 
 
-                <div className="flex">
-                    <div className="flex-initial">
-                        <Sidebar
-                            searchFilters={setSearchTermFilters}
-                            name={searchTerm}
-                        />
+                <div className="">
+                    {/*Title*/}
+                    <div className="font-black text-4xl text-gray-800 text-center pt-5">
+                        {searchTerm}
                     </div>
-                    <div className="relative flex-auto m-5 bg-blueGray-100">
+
+                    <div className="relative flex-auto m-5 ">
                         <div
                             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-4 ">
                             {data?.map((item, index) => {
@@ -126,56 +127,23 @@ let SearchPage: NextPage<NextAppProductIDPageProps> = ({
     )
 }
 
-export default SearchPage
+export default CategoryPage
 
 
-SearchPage.defaultProps = {
+CategoryPage.defaultProps = {
     meta: {
-        title: "Search",
+        title: "Category",
     }
 }
 
-SearchPage.getInitialProps = async ({query}) => {
+CategoryPage.getInitialProps = async ({query}) => {
     console.log("Get Initial Props")
 
-    const search_term = query.q
+    const search_term = query.category
 
 
     console.log(search_term)
 
-
-    /**
-     * Getting LikedProducts Status
-     */
-    /*
-    async function getDataLiked() {
-        let {data: likedproduct, errors} = await supabaseClient
-            .from('likedproduct')
-            .select('productids')
-            .eq('id', users.id)
-
-        if (errors) {
-            console.log(errors)
-            if (toString(errors).includes("Cannot read properties of undefined (reading 'items')")) {
-                console.log("Unauthorized")
-                return
-            }
-        }
-        console.log("Wishlist ", likedproduct[0].productids)
-        return likedproduct[0].productids
-    }
-
-    try {
-        prevData = await getData()
-    } catch (errors) {
-        console.log("Err", errors)
-    }
-
-    console.log("Prev Data", prevData)
-
-    // if productid already exists, then set wishlist status to true
-    const LikedStatus = !!prevData.find(item => item === Number(id));
-*/
 
 
     return {
