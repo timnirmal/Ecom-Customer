@@ -202,7 +202,7 @@ export default IndexPage
 
 IndexPage.defaultProps = {
     meta: {
-        title: 'Ecom'
+        title: 'AI Ecom'
     }
 }
 

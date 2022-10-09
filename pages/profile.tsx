@@ -40,18 +40,18 @@ const ProfilePage = ({}: InferGetServerSidePropsType<typeof getServerSideProps>)
 
     return (
         <Layout useBackdrop={false}>
-            <div className="h-screen flex flex-col justify-center items-center relative">
-                <Profile users={users}/>
+            <div className="h-screen flex flex-col py-10 items-center relative">
                 <h2 className="text-3xl my-4">Howdie, {users && users.email ? users.email : 'Explorer'}!</h2>
                 {!users &&
                     <small>You've landed on a protected page. Please <Link href="/">log in</Link> to view the page's
                         full content </small>}
                 {users && <div>
                     <button onClick={signOut}
-                            className="border bg-gray-500 border-gray-600 text-white px-3 py-2 rounded w-full text-center transition duration-150 shadow-lg">Sign
+                            className="border bg-gray-500 border-gray-600 text-white px-3 py-2 rounded w-full text-center transition duration-150 shadow-lg mb-5">Sign
                         Out
                     </button>
                 </div>}
+                <Profile users={users}/>
             </div>
         </Layout>
     )

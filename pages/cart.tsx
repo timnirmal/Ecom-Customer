@@ -97,7 +97,7 @@ const Cart = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) =>
         userLoading
     } = useAuth()
 
-    const [totalPrice, setTotalPrice] = useState(0)
+    const [totalPrice, setTotalPrice] = useState(80)
 
     console.log(data)
     console.log(data)
@@ -372,3 +372,4 @@ function addToInteractinos(productid: number, users: any, productType: number) {
     return valueAdded
 
 }
+
