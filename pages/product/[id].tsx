@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 
 import useSWR from 'swr'
 import {array} from "prop-types";
+import Head from 'next/head';
 
 
 let ProductPage: NextPage<NextAppProductIDPageProps> = ({
@@ -159,6 +160,20 @@ let ProductPage: NextPage<NextAppProductIDPageProps> = ({
             {/*<Head>*/}
             {/*    <title>{id}</title>*/}
             {/*</Head>*/}
+
+            <Head>
+                <title>{product[0].name}</title>
+                <meta name={product[0].name} content={product[0].description} key="desc" />
+                <meta property="og:title" content={product[0].name} />
+                <meta
+                    property="og:description"
+                    content={product[0].description}
+                />
+                <meta
+                    property="og:image"
+                    content="https://example.com/images/cool-page.jpg"
+                />
+            </Head>
 
             <Layout useBackdrop={true} usePadding={false}>
 

@@ -8,12 +8,12 @@ import BlogCards from '../../components/Chatbot/organisms/BlogCards';
 const getMoodOptions = (actionProvider) => {
     return [
         {
-            text: 'Doing great! Tell me about yourself',
+            text: 'What are you selling?',
             handler: () => actionProvider.handleGoodMood(),
             id: 1,
         },
         {
-            text: 'Having a bad day...',
+            text: 'Any Suggestions?',
             handler: () => actionProvider.handleBadMood(),
             id: 2,
         },
@@ -38,22 +38,22 @@ const getJokeOptions = (actionProvider) => {
 const getPersonalOptions = (actionProvider) => {
     return [
         {
-            text: 'Experience',
+            text: 'Men Clothing',
             handler: () => actionProvider.handleExperience(),
             id: 1,
         },
         {
-            text: 'Projects',
+            text: 'Women Clothing',
             handler: () => actionProvider.handleProjects(),
             id: 2,
         },
         {
-            text: 'Skills',
+            text: 'Unisex Clothing',
             handler: () => actionProvider.handleSkills(),
             id: 3,
         },
         {
-            text: 'Blogs',
+            text: 'Accessories',
             handler: () => actionProvider.handleBlogs(),
             id: 4,
         },
@@ -64,7 +64,7 @@ const ConfigChat = {
     botName: 'Jeffrey Yu',
     initialMessages: [
         createChatBotMessage(
-            "Hi, I'm Jeffrey. Nice to meet you! I How are you doing today?",
+            "Hi, I'm Thimira. Nice to meet you! How can I help you?",
             {
                 widget: 'moodOptions',
             }

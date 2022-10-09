@@ -1,9 +1,9 @@
 // import { getProgrammingJoke } from 'random-joke-getter';
 
 const intro =
-    "I'm a Computer Science student at UCLA and an aspiring software engineer. What do you want to know about me?";
+    "We are Clothing Business which Provides variety of clothes. But specialised in High end products";
 const experience =
-    'I worked as Software Engineer intern at Paramount, Done. and TechFin.AI.';
+    'Men Clothing Categories: ';
 const projects =
     "I'm love spotting problems from people around me and building solutions that make their lives easier.";
 const skills =
